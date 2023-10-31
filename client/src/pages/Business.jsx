@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 import React from 'react';
 // import { QUERY_BUSINESS } from '../../utils/queries';
-=======
+
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';

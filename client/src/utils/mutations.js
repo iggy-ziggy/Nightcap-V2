@@ -39,6 +39,19 @@ export const ADD_THOUGHT = gql`
   }
 `;
 
+export const ADD_BUSINESS = gql`
+mutation addBusiness($name: String!, $email: String, $phoneNumber: String, $bio: String, $addBusinessImage2: [String], $website: String, $location: String) {
+  addBusiness(name: $name, email: $email, phoneNumber: $phoneNumber, bio: $bio, image: $addBusinessImage2, website: $website, location: $location) {
+    bio
+    email
+    image
+    location
+    name
+    website
+  }
+}
+`;
+
 export const ADD_COMMENT = gql`
   mutation addComment($thoughtId: ID!, $commentText: String!) {
     addComment(thoughtId: $thoughtId, commentText: $commentText) {

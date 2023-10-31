@@ -80,6 +80,19 @@ const resolvers = {
         );
       }
       throw AuthenticationError;
+    addBusiness: async (parent, args, context) => {
+      // if (!context.user) {
+      //   throw new AuthenticationError('You must be logged in to add a business.');
+      // }
+    
+      try {
+        const business = await Business.create(args);
+        const token = signToken(business);
+        return { business, token };
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create a business.');
+      }
     },
     removeThought: async (parent, { thoughtId }, context) => {
       if (context.user) {

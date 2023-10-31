@@ -8,6 +8,8 @@ import Login from './pages/Login';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import ErrorPage from './pages/ErrorPage';
+import Business from './pages/Business';
+import UploadBusiness from './pages/UploadBusiness';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,12 @@ const router = createBrowserRouter([
       }, {
         path: '/login',
         element: <Login />
+      }, {
+        path: '/businesses/:id',
+        element: <Business />
+      }, {
+        path: '/businesses/upload',
+        element: <UploadBusiness />
       }, {
         path: '/signup',
         element: <Signup />

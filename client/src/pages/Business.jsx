@@ -1,5 +1,5 @@
 import React from 'react';
-import { QUERY_BUSINESS } from '../../utils/queries';
+// import { QUERY_BUSINESS } from '../../utils/queries';
 
 const Business = () => {
   return (

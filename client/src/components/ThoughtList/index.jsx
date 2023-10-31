@@ -1,21 +1,39 @@
 import { Link } from 'react-router-dom';
 
-const ThoughtList = ({ thoughts, title }) => {
+const ThoughtList = ({
+  thoughts,
+  title,
+  showTitle = true,
+  showUsername = true,
+}) => {
   if (!thoughts.length) {
-    return <h3>No Thoughts Yet</h3>;
+    return <h3>No Reviews Yet</h3>;
   }
 
   return (
     <div>
-      <h3>{title}</h3>
+      {showTitle && <h3>{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
           <div key={thought._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
-              {thought.thoughtAuthor} <br />
-              <span style={{ fontSize: '1rem' }}>
-                {thought.createdAt}
-              </span>
+              {showUsername ? (
+                <Link
+                  className="text-light"
+                  to={`/profiles/${thought.thoughtAuthor}`}
+                >
+                  {thought.thoughtAuthor} <br />
+                  <span style={{ fontSize: '1rem' }}>
+                    {thought.createdAt}
+                  </span>
+                </Link>
+              ) : (
+                <>
+                  <span style={{ fontSize: '1rem' }}>
+                    {thought.createdAt}
+                  </span>
+                </>
+              )}
             </h4>
             <div className="card-body bg-light p-2">
               <p>{thought.thoughtText}</p>

@@ -11,9 +11,7 @@ const ThoughtList = ({ thoughts, title }) => {
   }
 
   return (
-    <div id="thought-list" className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
-      <h3 className={`${styles.sectionHeadText} py-20`}>Reviews</h3>
-      <p className={`${styles.sectionSubText} text-white-100`}>Leave a comment</p>
+    <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
       {thoughts &&
         thoughts.map((thought) => (
           <div key={thought._id} className="mt-12 flex-col flex gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full hover:shadow-card">

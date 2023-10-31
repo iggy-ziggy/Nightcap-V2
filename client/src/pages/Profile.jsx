@@ -30,6 +30,7 @@ import { useQuery } from "@apollo/client";
 import ThoughtList from "../components/ThoughtList";
 import ThoughtForm from "../components/ThoughtForm";
 import { Navbar } from "../components";
+import { styles } from "../styles";
 
 import { QUERY_THOUGHTS } from "../utils/queries";
 import User from "../components/User";
@@ -46,7 +47,9 @@ const Profile = () => {
         <Navbar />
         <User />
       </div>
-      <div className="col-12 col-md-8 mb-3">
+      <div id="thought-list" className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
+        <h3 className={`${styles.sectionHeadText} py-20`}>Reviews</h3>
+        <p className={`${styles.sectionSubText} text-white-100`}>Leave a comment</p>
         {loading ? (
           <div>Loading...</div>
         ) : (

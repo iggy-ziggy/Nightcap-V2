@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const Thought = require('./Thought');
+const Review = require('./Review');
 // const Cocktail = require('./Cocktail');
 
 const businessSchema = new Schema({
@@ -20,11 +20,11 @@ const businessSchema = new Schema({
     type: String,
     maxlength: 500,
   },
-//   likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
   image: [String],
   website: String,
   location: String,
-  thoughts: [{ type: Schema.Types.ObjectId, ref: "Thought" }],
+  reviews: [{ type: Schema.Types.ObjectId, ref: "Thought" }],
 //   cocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
 });
 

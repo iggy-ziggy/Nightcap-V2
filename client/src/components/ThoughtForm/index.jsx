@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS } from '../../utils/queries';
+import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
@@ -16,7 +16,9 @@ const ThoughtForm = () => {
   (ADD_THOUGHT, {
     refetchQueries: [
       QUERY_THOUGHTS,
-      'getThoughts'
+      'getThoughts',
+      QUERY_ME,
+      'me'
     ]
   });
 
@@ -48,7 +50,7 @@ const ThoughtForm = () => {
 
   return (
     <div>
-      <h3>What are you drinking?</h3>
+      <h3>What's on your techy mind?</h3>
 
       {Auth.loggedIn() ? (
         <>

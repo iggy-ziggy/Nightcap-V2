@@ -94,13 +94,13 @@ const LoginForm = (props) => {
             <div className='flex flex-row sm:block justify-center'>
               <button
                 type="submit"
-                className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'
+                className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white'
               >
                 Go!
               </button>
             </div>
             <div className='flex flex-row sm:block justify-center'>
-              <Link to="/signup" className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'>Dont Have an account?</Link>
+              <Link to="/signup" className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white'>Dont Have an account?</Link>
             </div>
           </form>
         </motion.div>

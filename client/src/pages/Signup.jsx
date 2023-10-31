@@ -122,7 +122,7 @@ const Form = () => {
           <div className='flex flex-row sm:block justify-center'>
           <button
               type="submit"
-              className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'             
+              className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white'             
             >
               Go!
             </button>

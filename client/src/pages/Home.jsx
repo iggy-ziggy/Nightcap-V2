@@ -87,7 +87,8 @@ const Home = () => {
 
           <InputText 
             type="file"
-            accept="/image/"
+            accept="image/"
+            style={{ display: "none"}}
             onChange= {(event)=>{
               const file = event.target.files[0];
               if(file && file.type.substring(0,5)==="image"){

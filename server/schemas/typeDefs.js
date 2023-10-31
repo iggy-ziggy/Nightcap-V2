@@ -5,7 +5,6 @@ const typeDefs = `
     email: String
     password: String
     thoughts: [Thought]!
-    image: String
   }
 
   type Thought {
@@ -33,7 +32,6 @@ const typeDefs = `
     user(username: String!): User
     thoughts(username: String): [Thought]
     thought(thoughtId: ID!): Thought
-    image(imageId: ID!): Image
   }
 
   type Mutation {

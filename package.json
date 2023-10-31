@@ -15,5 +15,9 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "primereact": "^10.0.7",
+    "react-avatar-edit": "^1.2.0"
   }
 }

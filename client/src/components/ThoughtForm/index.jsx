@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
+import { useParams } from "react-router-dom";
 import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+import { QUERY_THOUGHTS, QUERY_BUSINESS, QUERY_ME } from '../../utils/queries';
+
 
 import Auth from '../../utils/auth';
 
@@ -12,15 +13,23 @@ const ThoughtForm = () => {
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addThought, { error }] = useMutation
-  (ADD_THOUGHT, {
-    refetchQueries: [
-      QUERY_THOUGHTS,
-      'getThoughts',
-      QUERY_ME,
-      'me'
-    ]
-  });
+  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
+  refetchQueries: [
+    {
+      query: QUERY_THOUGHTS,
+      variables: {},
+    },
+    businessId
+      ? {
+          query: QUERY_BUSINESS,
+          variables: { businessId },
+        }
+      : null,
+    {
+      query: QUERY_ME,
+    }
+  ],
+});
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -30,6 +39,7 @@ const ThoughtForm = () => {
         variables: {
           thoughtText,
           thoughtAuthor: Auth.getProfile().data.username,
+          businessId: businessId || null,
         },
       });
 

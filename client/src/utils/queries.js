@@ -43,6 +43,31 @@ export const QUERY_SINGLE_THOUGHT = gql`
   }
 `;
 
+
+export const QUERY_BUSINESS = gql`
+query business($businessId: ID!) {
+  business(businessId: $businessId) {
+    _id
+    bio
+    email
+    image
+    location
+    thoughts {
+      _id
+      comments {
+        commentAuthor
+        commentText
+        createdAt
+        _id
+      }
+      createdAt
+      thoughtAuthor
+      thoughtText
+    }
+    website
+  }
+}`;
+
 export const QUERY_ME = gql`
   query me {
     me {
@@ -58,3 +83,4 @@ export const QUERY_ME = gql`
     }
   }
 `;
+

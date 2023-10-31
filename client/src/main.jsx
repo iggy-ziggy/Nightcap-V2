@@ -24,10 +24,10 @@ const router = createBrowserRouter([
         path: '/login',
         element: <Login />
       }, {
-        path: '/business/:id',
+        path: '/businesses/:id',
         element: <Business />
       }, {
-        path: '/business/upload',
+        path: '/businesses/upload',
         element: <UploadBusiness />
       }, {
         path: '/signup',

@@ -9,6 +9,7 @@ import About from './pages/About.jsx';
 import Profile from './pages/Profile';
 import SingleThought from './pages/SingleThought';
 import ErrorPage from './pages/ErrorPage';
+import LandingPage from './pages/LandingPage';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <LandingPage />
       }, {
         path: '/login',
         element: <Login />
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
       }, {
         path: '/profile',
         element: <Profile />
+      }, {
+        path: '/home',
+        element: <Home />
       }
     ]
   },

@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
+import Navbar from '../components/Navbar';
 
 import { QUERY_SINGLE_THOUGHT } from '../utils/queries';
 
@@ -23,6 +24,7 @@ const SingleThought = () => {
   }
   return (
     <div className="my-3">
+      <Navbar />
       <h3 className="card-header bg-dark text-light p-2 m-0">
         {thought.thoughtAuthor} <br />
         <span style={{ fontSize: '1rem' }}>

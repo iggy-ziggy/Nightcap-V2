@@ -46,7 +46,6 @@ const typeDefs = `
     thoughts(username: String): [Thought]
     thought(thoughtId: ID!): Thought
     business(businessId: ID!): Business
-    me: User
   }
 
   type Mutation {
@@ -54,7 +53,11 @@ const typeDefs = `
     addBusiness( name: String!, email: String, phoneNumber: String, bio: String, image: [String], website: String, location: String): Business
     login(email: String!, password: String!): Auth
     addThought(thoughtText: String!, thoughtAuthor: String!, business: ID): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
+    addComment(
+      thoughtId: ID!
+      commentText: String!
+      commentAuthor: String!
+    ): Thought
     removeThought(thoughtId: ID!): Thought
     removeComment(thoughtId: ID!, commentId: ID!): Thought
   }

@@ -51,6 +51,20 @@ const resolvers = {
 
       return thought;
     },
+    addBusiness: async (parent, args, context) => {
+      // if (!context.user) {
+      //   throw new AuthenticationError('You must be logged in to add a business.');
+      // }
+    
+      try {
+        const business = await Business.create(args);
+        const token = signToken(business);
+        return { business, token };
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create a business.');
+      }
+    },
     addComment: async (parent, { thoughtId, commentText, commentAuthor }) => {
       return Thought.findOneAndUpdate(
         { _id: thoughtId },

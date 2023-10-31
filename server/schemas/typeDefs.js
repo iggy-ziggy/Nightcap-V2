@@ -7,6 +7,18 @@ const typeDefs = `
     thoughts: [Thought]!
   }
 
+  type Business {
+    _id: ID!
+    name: String!
+    email: String
+    bio: String
+    likes: [User]
+    image: String
+    website: String
+    location: String
+    reviews: [Thought]
+}
+
   type Thought {
     _id: ID
     thoughtText: String
@@ -36,6 +48,7 @@ const typeDefs = `
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
+    addBusiness( name: String!, email: String, phoneNumber: String, bio: String, image: [String], website: String, location: String): Business
     login(email: String!, password: String!): Auth
     addThought(thoughtText: String!, thoughtAuthor: String!): Thought
     addComment(

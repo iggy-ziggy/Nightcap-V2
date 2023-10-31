@@ -5,6 +5,7 @@ import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
+import Auth from '../../utils/auth';
 
 function User() {
     return (
@@ -33,7 +34,7 @@ function User() {
                         variants={slideIn('right', "tween", 0.2, 1)}
                     >
                         <div className='sm:block hidden'>
-                            <p className={`${styles.heroHeadText} mt-2 text-center`}>Hello <span className='text-[#915eff]'>{User.username}</span></p>
+                            <p className={`${styles.heroHeadText} mt-2 text-center`}>Hello <span className='text-[#915eff]'>{Auth.getProfile().data.username}</span></p>
                         </div>
                     </motion.div>
                     <div className='flex flex-col justify-center items-center mt-5'>

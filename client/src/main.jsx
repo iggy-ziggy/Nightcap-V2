@@ -10,6 +10,8 @@ import Profile from './pages/Profile';
 import SingleThought from './pages/SingleThought';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage from './pages/LandingPage';
+import Business from './pages/Business';
+import UploadBusiness from './pages/UploadBusiness';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,12 @@ const router = createBrowserRouter([
       }, {
         path: '/login',
         element: <Login />
+      }, {
+        path: '/business/:businessId',
+        element: <Business />
+      }, {
+        path: '/business/upload',
+        element: <UploadBusiness />
       }, {
         path: '/signup',
         element: <Signup />

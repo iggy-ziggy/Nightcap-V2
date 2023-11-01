@@ -22,6 +22,7 @@ export const QUERY_THOUGHTS = gql`
       thoughtText
       thoughtAuthor
       createdAt
+      businessId
     }
   }
 `;
@@ -41,6 +42,31 @@ export const QUERY_SINGLE_THOUGHT = gql`
     }
   }
 `;
+
+export const QUERY_BUSINESS = gql`
+query business($businessId: ID!) {
+  business(businessId: $businessId) {
+    _id
+    bio
+    email
+    image
+    name
+    location
+    thoughts {
+      _id
+      comments {
+        commentAuthor
+        commentText
+        createdAt
+        _id
+      }
+      createdAt
+      thoughtAuthor
+      thoughtText
+    }
+    website
+  }
+}`;
 
 // export const QUERY_USER_THOUGHTS = gql`
 //   query getUserThoughts($username: String!) {

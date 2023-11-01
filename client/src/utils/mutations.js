@@ -25,8 +25,8 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!, $thoughtAuthor: String!) {
-    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor) {
+  mutation addThought($thoughtText: String!, $thoughtAuthor: String!, $businessId: ID) {
+    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor, businessId: $businessId) {
       _id
       thoughtText
       thoughtAuthor
@@ -59,6 +59,22 @@ export const ADD_COMMENT = gql`
         commentText
         createdAt
       }
+    }
+  }
+`;
+
+
+export const ADD_BUSINESS = gql`
+  mutation AddBusiness($name: String!, $email: String, $phoneNumber: String, $bio: String, $image: [String], $website: String, $location: String) {
+    addBusiness(name: $name, email: $email, phoneNumber: $phoneNumber, bio: $bio, image: $image, website: $website, location: $location) {
+      _id
+      name
+      email
+      phoneNumber
+      bio
+      image
+      website
+      location
     }
   }
 `;

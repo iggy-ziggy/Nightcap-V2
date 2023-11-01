@@ -6,34 +6,40 @@ import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
 
 import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS } from '../../utils/queries';
+import { QUERY_THOUGHTS, QUERY_BUSINESS } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
-const ThoughtForm = () => {
+const ThoughtForm = ( businessId ) => {
   const [thoughtText, setThoughtText] = useState('');
-
   const [characterCount, setCharacterCount] = useState(0);
-
-  const [addThought, { error }] = useMutation
-    (ADD_THOUGHT, {
-      refetchQueries: [
-        QUERY_THOUGHTS,
-        'getThoughts'
-      ]
-    });
+  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
+    refetchQueries: businessId
+      ? [
+          { query: QUERY_THOUGHTS, variables: { businessId } },
+          { query: QUERY_BUSINESS, variables: { businessId } },
+        ]
+      : [{ query: QUERY_THOUGHTS }],
+  });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const { data } = await addThought({
-        variables: {
-          thoughtText,
-          thoughtAuthor: Auth.getProfile().data.username,
-        },
-      });
+      const thoughtAuthor = Auth.getProfile().data.username;
+  
+      const input = {
+        thoughtText,
+        thoughtAuthor,
+        businessId: businessId ? businessId.businessId : null,
+      };
 
+      console.log(input);
+  
+      const { data } = await addThought({
+        variables: input,
+      });
+      
       setThoughtText('');
     } catch (err) {
       console.error(err);

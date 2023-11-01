@@ -6,11 +6,30 @@ import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
-import { InputText } from 'primereact/inputtext';
+// import { InputText } from 'primereact/inputtext';
 import Auth from '../../utils/auth';
 import img from '/no-image.jpg';
+import CameraIcon from '/camera-icon.svg';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
+
+
+// Initialize firebase for image storage
+const firebaseConfig = {
+    apiKey: 'AIzaSyATd-cXIDX-3YQV-rZU4XTAuu1hYUExl60',
+    authDomain: 'nightcap-24dad.firebaseapp.com',
+    projectId: 'nightcap-24dad',
+    storageBucket: 'nightcap-24dad.appspot.com',
+    messagingSenderId: '490604626131',
+    appId: '1:490604626131:web:61c02ae99f289711fe9426',
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  
+  const storage = firebase.storage();
+  const storageRef = storage.ref();
+
+
 
 function User() {
     const [image, setimage] = useState("");
@@ -59,19 +78,61 @@ function User() {
                             variants={slideIn('left', "tween", 0.2, 1)}
                             className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
                         >
-                            <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'>
+                            <div 
+                                className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'
+                                onMouseEnter={() => {
+                                    // On hover, make the camera icon visible
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'block';
+                                }}
+                                onMouseLeave={() => {
+                                    // On hover exit, hide the camera icon
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'none';
+                                }}>
                                 <img
                                     className="profileImg"
+                                    id="img-profile"
                                     style={{
                                         width:'200px',
                                         height:'200px',
                                         borderRadius: '50%',
                                         objectFit: 'cover',
                                         border: '4px solid blue',
+                                        transition: 'transform 0.2s ease-in-out',
                                       }}
                                     src={src || img}
                                     alt="Profile Picture" 
                                 ></img>
+                                <div>
+                                    <label 
+                                        htmlFor="imageUpload" 
+                                        className="camera-icon"
+                                        style={{
+                                            display: 'none', // Initially, hide the camera icon
+                                            position: 'absolute', // Position the camera icon absolutely within the parent container
+                                            top: '50%', 
+                                            left: '50%', 
+                                            transform: 'translate(-50%, -50%)', // Center the icon using transform
+                                        }}>
+                                        <img src={CameraIcon} alt="Camera Icon" />
+                                    </label>
+                                    <input 
+                                        type="file"
+                                        accept="image/*"
+                                        id="imageUpload"
+                                        style={{ display: 'none' }}
+                                        onChange= {(event)=>{
+                                            const file = event.target.files[0];
+                                            if(file && file.type.startsWith('image')){
+                                                setimage(file);
+                                                saveImage('');
+                                            } else{
+                                                setimage(null);
+                                            }
+                                        }} />
+                                    {/* <button onClick={saveImage}>Save</button> */}
+                                </div>
                             </div>
                         </motion.div>
                     </Tilt>

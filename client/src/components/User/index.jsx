@@ -130,7 +130,7 @@ function User() {
                                                 setimage(file);
                                                 saveImage();
                                             } else{
-                                                setimage(null);
+                                                setimage(img);
                                             }
                                         }} />
                                     {/* <button onClick={saveImage}>Save</button> */}

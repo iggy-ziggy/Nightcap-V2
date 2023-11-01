@@ -9,6 +9,8 @@ export const QUERY_USER = gql`
       thoughts {
         _id
         thoughtText
+        thoughtTitle
+        thoughtPlace
         createdAt
       }
     }
@@ -20,6 +22,8 @@ export const QUERY_THOUGHTS = gql`
     thoughts {
       _id
       thoughtText
+      thoughtTitle
+      thoughtPlace
       thoughtAuthor
       createdAt
     }
@@ -31,6 +35,8 @@ export const QUERY_SINGLE_THOUGHT = gql`
     thought(thoughtId: $thoughtId) {
       _id
       thoughtText
+      thoughtTitle
+      thoughtPlace
       thoughtAuthor
       createdAt
       comments {

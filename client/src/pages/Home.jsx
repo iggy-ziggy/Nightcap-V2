@@ -1,62 +1,70 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useQuery } from '@apollo/client';
 import { QUERY_THOUGHTS } from '../utils/queries';
-import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
-import { Button } from 'primereact/button';
-
-import Avatar from 'react-avatar-edit';
 import ThoughtFeed from '../components/ThoughtFeed';
 import Auth from '../utils/auth';
-import img from '/profilePicture.png'
+import img from '/no-image.jpg';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
 
-import firebase from 'firebase/app';
-import 'firebase/storage';
-
-// Initialize Firebase with your Firebase configuration
 const firebaseConfig = {
-  apiKey: 'YOUR_API_KEY',
-  authDomain: 'YOUR_AUTH_DOMAIN',
-  projectId: 'YOUR_PROJECT_ID',
-  storageBucket: 'YOUR_STORAGE_BUCKET',
-  messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-  appId: 'YOUR_APP_ID',
+  apiKey: 'AIzaSyATd-cXIDX-3YQV-rZU4XTAuu1hYUExl60',
+  authDomain: 'nightcap-24dad.firebaseapp.com',
+  projectId: 'nightcap-24dad',
+  storageBucket: 'nightcap-24dad.appspot.com',
+  messagingSenderId: '490604626131',
+  appId: '1:490604626131:web:61c02ae99f289711fe9426',
 };
 
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
-
+const storageRef = storage.ref();
 
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   const thoughts = data?.thoughts || [];
   const [image, setimage] = useState("");
-  const [imagecrop, setimagecrop] = useState(false);
   const [src, setsrc] = useState(false);
   const [profile, setProfile] = useState([]);
-  const [pview,setpview] = useState(false);
   
-  const profileFinal = profile.map((item) => item.pview);
+  const profilePic = profile.map((item) => item.image);
 
-  const onClose = () => {
-    setpview(null);
+  const saveImage = () => {
+    setProfile([...profile, { IMAGE: image }]);
+    
+    if (image) {
+      const imageRef = storageRef.child(`images/${Auth.getProfile().data.username}_profile.jpg`);
+      // Upload the image to Firebase Storage.
+      imageRef.put(image)
+        .then((snapshot) => {
+          console.log('Image uploaded to Firebase Storage');
+          snapshot.ref.getDownloadURL().then((downloadURL) => {
+            setsrc(downloadURL);
+            // store image in local storage
+            localStorage.setItem('profileImage', downloadURL);
+          });
+        })
+        .catch((error) => {
+          console.error('Error uploading image to Firebase Storage:', error);
+        });
+    }
   }
 
-  const onCrop = (view) => {
-    setpview(view);
-  }
-
-  const saveCropImage = () => {
-    setProfile([...profile, { pview }]);
-    setimagecrop(false);
-  }
+  useEffect(() => {
+    // Retrieve the image URL from localStorage
+    const storedImageURL = localStorage.getItem('profileImage');
+    
+    if (storedImageURL) {
+      setsrc(storedImageURL);
+    }
+  }, []);
 
   return (
     <main>
       <h2>Hey, <span>{Auth.getProfile().data.username}</span>!</h2>
-      {/* <ProfilePicture /> */}
       <div className='profile_img text-center p-4'>
         <div className='flex flex-column justify-content-center align-items-center'>
           <img
@@ -67,46 +75,14 @@ const Home = () => {
               objectFit: 'cover',
               border: '4px solid blue',
             }}
-            onClick={() => setimagecrop(true)}
-            src={profileFinal.length ? profileFinal : img}
-            alt="User profile picture" 
+            // onClick={() => {<InputText/>}}
+            src={src || img}
+            alt="Profile Picture" 
           />
-
-          <Dialog 
-            visible={imagecrop} 
-            header={() => (
-              <p htmlFor="" className="text-2xl font-semibold textColor">
-              Update Profile
-              </p>
-            )}
-            onHide={() => setimagecrop(false)}>
-              <div className='confirmation-content flex flex-column align-items-center'>
-                <Avatar
-                  width={500}
-                  height={500}
-                  onCrop={onCrop}
-                  onClose={onClose}
-                  src={src}
-                  shadingColor={'#474649'}
-                  backgroundColor={'#474649'}
-                  />
-        
-              <div className='flex flex-column align-items-center mt-5 w-12'>
-                <div className='flex flex-justify-content-around w-12 mt-4'>
-                  <Button
-                    onClick={saveCropImage}
-                    label="save"
-                    icon="pi pi-check"
-                  />
-                </div>
-              </div>
-            </div>
-          </Dialog>
 
           <InputText 
             type="file"
-            accept="image/"
-            style={{ display: "none"}}
+            accept="/image/"
             onChange= {(event)=>{
               const file = event.target.files[0];
               if(file && file.type.substring(0,5)==="image"){
@@ -115,6 +91,7 @@ const Home = () => {
                 setimage(null);
               }
             }} />
+          <button onClick={saveImage}>Save</button>
         </div>
       </div>
         

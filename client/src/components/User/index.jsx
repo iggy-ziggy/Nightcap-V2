@@ -1,13 +1,54 @@
 import { motion } from 'framer-motion';
 import { styles } from '../../styles';
 import { slideIn } from '../../utils/motion';
+import React, {useState, useRef, useEffect} from 'react';
 import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
+import { InputText } from 'primereact/inputtext';
 import Auth from '../../utils/auth';
+import img from '/no-image.jpg';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
 
 function User() {
+    const [image, setimage] = useState("");
+    const [src, setsrc] = useState(false);
+    const [profile, setProfile] = useState([]);
+
+    const profilePic = profile.map((item) => item.image);
+
+    const saveImage = () => {
+        setProfile([...profile, { IMAGE: image }]);
+
+        if (image) {
+            const imageRef = storageRef.child(`images/${Auth.getProfile().data.username}_profile.jpg`);
+            // Upload the image to Firebase Storage.
+            imageRef.put(image)
+            .then((snapshot) => {
+                console.log('Image uploaded to Firebase Storage');
+                snapshot.ref.getDownloadURL().then((downloadURL) => {
+                setsrc(downloadURL);
+                // store image in local storage
+                localStorage.setItem('profileImage', downloadURL);
+                });
+            })
+            .catch((error) => {
+                console.error('Error uploading image to Firebase Storage:', error);
+            });
+        }
+    }
+
+    useEffect(() => {
+        // Retrieve the image URL from localStorage
+        const storedImageURL = localStorage.getItem('profileImage');
+
+        if (storedImageURL) {
+            setsrc(storedImageURL);
+        }
+    }, []);
+
     return (
         <section className='relative w-full h-screen mx-auto'>
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
@@ -20,8 +61,16 @@ function User() {
                         >
                             <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'>
                                 <img
-                                    className="w-30 h-30 object-contain rounded-[180px]"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwnwAwRQEwRvQYCfXAgvnKUKjQ1KJKlNY2Yw&usqp=CAU"
+                                    className="profileImg"
+                                    style={{
+                                        width:'200px',
+                                        height:'200px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: '4px solid blue',
+                                      }}
+                                    src={src || img}
+                                    alt="Profile Picture" 
                                 ></img>
                             </div>
                         </motion.div>

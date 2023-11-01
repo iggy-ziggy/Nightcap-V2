@@ -28,8 +28,6 @@ import User from "../components/User";
 // const storage = firebase.storage();
 // const storageRef = storage.ref();
 
-
-
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);
   // const { loading, data } = useQuery(QUERY_USER_THOUGHTS);

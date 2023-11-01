@@ -13,7 +13,6 @@ import CameraIcon from '/camera-icon.svg';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
 
-
 // Initialize firebase for image storage
 const firebaseConfig = {
     apiKey: 'AIzaSyATd-cXIDX-3YQV-rZU4XTAuu1hYUExl60',
@@ -29,8 +28,6 @@ const firebaseConfig = {
   const storage = firebase.storage();
   const storageRef = storage.ref();
 
-
-
 function User() {
     const [image, setimage] = useState("");
     const [src, setsrc] = useState(false);
@@ -39,15 +36,19 @@ function User() {
     const profilePic = profile.map((item) => item.image);
 
     const saveImage = () => {
-        setProfile([...profile, { IMAGE: image }]);
-
-        if (image) {
+        console.log('Image selected');
+        setProfile([...profile, { image: image }]);
+        console.log('passed setProfile');
+        
+        if (image || profilePic) {
             const imageRef = storageRef.child(`images/${Auth.getProfile().data.username}_profile.jpg`);
+            console.log('Image identified')
             // Upload the image to Firebase Storage.
             imageRef.put(image)
             .then((snapshot) => {
                 console.log('Image uploaded to Firebase Storage');
                 snapshot.ref.getDownloadURL().then((downloadURL) => {
+                console.log('Download URL:', downloadURL);
                 setsrc(downloadURL);
                 // store image in local storage
                 localStorage.setItem('profileImage', downloadURL);
@@ -64,6 +65,7 @@ function User() {
         const storedImageURL = localStorage.getItem('profileImage');
 
         if (storedImageURL) {
+            console.log(storedImageURL);
             setsrc(storedImageURL);
         }
     }, []);
@@ -91,7 +93,7 @@ function User() {
                                     cameraIcon.style.display = 'none';
                                 }}>
                                 <img
-                                    className="profileImg"
+                                    className="profileImage"
                                     id="img-profile"
                                     style={{
                                         width:'200px',
@@ -110,7 +112,7 @@ function User() {
                                         className="camera-icon"
                                         style={{
                                             display: 'none', // Initially, hide the camera icon
-                                            position: 'absolute', // Position the camera icon absolutely within the parent container
+                                            position: 'absolute',
                                             top: '50%', 
                                             left: '50%', 
                                             transform: 'translate(-50%, -50%)', // Center the icon using transform
@@ -126,7 +128,7 @@ function User() {
                                             const file = event.target.files[0];
                                             if(file && file.type.startsWith('image')){
                                                 setimage(file);
-                                                saveImage('');
+                                                saveImage();
                                             } else{
                                                 setimage(null);
                                             }

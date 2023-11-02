@@ -40,36 +40,31 @@ const CommentForm = ({ thoughtId }) => {
   };
 
   return (
-    <div>
-      <h4>What are your thoughts on this thought?</h4>
+    <div className='bg-black-100 rounded-[20px] py-5 px-12 min-h-[300px] flex justify-evenly items-center flex-col'>
+      <h4>What do you have to say?</h4>
 
       {Auth.loggedIn() ? (
         <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
-            {error && <span className="ml-2">{error.message}</span>}
-          </p>
           <form
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
-              <textarea
-                name="commentText"
-                placeholder="Add your comment..."
-                value={commentText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
-                onChange={handleChange}
-              ></textarea>
-            </div>
+            <label className='flex flex-col'>
+                  <textarea
+                    rows="4"
+                    name="commentText"
+                    placeholder="Add your comment..."
+                    value={commentText}
+                    onChange={handleChange}
+                    className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                  />
+                  <span className={`text-white font-medium ${characterCount === 280 || error ? 'text-danger' : ''}`}
+                  >
+                    Character Count: {characterCount}/280</span>
+                </label>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+            <div>
+              <button className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white' type="submit">
                 Add Comment
               </button>
             </div>

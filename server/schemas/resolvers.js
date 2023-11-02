@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Thought, Business } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -14,7 +14,20 @@ const resolvers = {
       return Thought.find(params).sort({ createdAt: -1 });
     },
     thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+      return Thought.findOne({ _id: thoughtId }).populate('comments');
+    },
+    business: async (parent, { businessId }) => {
+      if (businessId) {
+        const business = await Business.findOne({ _id: businessId }).populate('thoughts');
+        if (!business) {
+          throw new Error('Business not found'); // You can customize the error message
+        }
+        return business;
+      }
+      return null; // Return null or handle the case when no businessId is provided.
+    },
+    businesses: async () => {
+      return Business.find();
     },
   },
 
@@ -26,30 +39,64 @@ const resolvers = {
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
+      console.log(user);
       if (!user) {
+        console.log('No user found with this email address');
         throw AuthenticationError;
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
+        console.log('Incorrect password');
         throw AuthenticationError;
       }
 
       const token = signToken(user);
+      console.log('token')
 
       return { token, user };
     },
-    addThought: async (parent, { thoughtText, thoughtAuthor }) => {
-      const thought = await Thought.create({ thoughtText, thoughtAuthor });
-
-      await User.findOneAndUpdate(
-        { username: thoughtAuthor },
-        { $addToSet: { thoughts: thought._id } }
-      );
-
-      return thought;
+    addThought: async (parent, { thoughtText, thoughtAuthor, businessId }) => {
+      try {
+        // Create the thought
+        const thought = await Thought.create({
+          thoughtText,
+          thoughtAuthor,
+          business: businessId, // Associate thought with a business if provided
+        });
+    
+        // Associate thought with the user
+        await User.findOneAndUpdate(
+          { username: thoughtAuthor },
+          { $addToSet: { thoughts: thought._id } }
+        );
+    
+        if (businessId) {
+          const updatedBusiness = await Business.findOneAndUpdate(
+            { _id: businessId },
+            { $addToSet: { thoughts: thought._id } },
+            { new: true } // Ensure we get the updated business
+          );
+          
+          console.log('Successfully added thought to business:', updatedBusiness);
+        }
+    
+        console.log('Successfully added thought:', thought);
+        return thought;
+      } catch (error) {
+        console.error('Error adding thought:', error);
+        throw error; // Rethrow the error for debugging
+      }
+    },
+    addBusiness: async (parent, args) => {
+      try {
+        const business = await Business.create(args);
+        return business;
+      } catch (error) {
+        console.error(error);
+        throw new Error('Failed to create a business.');
+      }
     },
     addBusiness: async (parent, args, context) => {
       // if (!context.user) {
@@ -78,7 +125,29 @@ const resolvers = {
       );
     },
     removeThought: async (parent, { thoughtId }) => {
-      return Thought.findOneAndDelete({ _id: thoughtId });
+      try {
+        const deletedThought = await Thought.findOneAndDelete({ _id: thoughtId });
+    
+        if (!deletedThought) {
+          throw new Error("Thought not found");
+        }
+    
+        if (deletedThought.businessId) {
+          const business = await Business.findOne({ _id: deletedThought.businessId });
+    
+          if (!business) {
+            throw new Error("Business not found");
+          }
+    
+          business.thoughts.pull(deletedThought._id);
+    
+          await business.save();
+        }
+    
+        return deletedThought;
+      } catch (error) {
+        throw error;
+      }
     },
     removeComment: async (parent, { thoughtId, commentId }) => {
       return Thought.findOneAndUpdate(

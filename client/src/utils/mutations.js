@@ -75,3 +75,18 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
+
+export const ADD_BUSINESS = gql`
+  mutation AddBusiness($name: String!, $email: String, $phoneNumber: String, $bio: String, $image: [String], $website: String, $location: String) {
+    addBusiness(name: $name, email: $email, phoneNumber: $phoneNumber, bio: $bio, image: $image, website: $website, location: $location) {
+      _id
+      name
+      email
+      phoneNumber
+      bio
+      image
+      website
+      location
+    }
+  }
+`;

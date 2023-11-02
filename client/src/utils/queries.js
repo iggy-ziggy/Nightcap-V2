@@ -15,6 +15,26 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_USERS = gql`
+  query users {
+    users {
+      _id
+      image
+      username
+    }
+  }
+`;
+
+export const QUERY_BUSINESSES = gql`
+  query businesses {
+    businesses {
+      _id
+      image
+      name
+    }
+  }
+`;
+
 export const QUERY_THOUGHTS = gql`
   query getThoughts {
     thoughts {
@@ -22,6 +42,7 @@ export const QUERY_THOUGHTS = gql`
       thoughtText
       thoughtAuthor
       createdAt
+      businessId
     }
   }
 `;
@@ -49,6 +70,7 @@ query business($businessId: ID!) {
     bio
     email
     image
+    name
     location
     thoughts {
       _id
@@ -65,6 +87,7 @@ query business($businessId: ID!) {
     website
   }
 }`;
+
 
 // export const QUERY_SINGLE_BUSINESS = gql`
 // export const QUERY_USER_THOUGHTS = gql`

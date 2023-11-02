@@ -7,15 +7,70 @@ import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
-import Auth from '../../utils/auth';
+import Auth from "../../utils/auth";
 import img from '/no-image.jpg';
 import CameraIcon from '/camera-icon.svg';
-import  { useNavigate }  from "react-router-dom";
-// import UploadImage from "../components/UploadImage";
-// import { ADD_USER } from "../utils/mutations";
-
+import UploadImage from "../../components/UploadImage";
+import { UPDATE_USER } from "../../utils/mutations";
 
 function User() {
+    const [userId, setUserId] = useState("");
+    const [imageUrl, setImageUrl] = useState([]);
+    const [userData, setUserData] = useState({
+        userId:"",
+        image: "",
+    });
+    
+    
+    useEffect(() => {
+        const profile = Auth.getProfile();
+        if (profile) {
+          const userId = profile.data._id;
+          console.log(userId);
+          setUserData({...userData, user: userId });
+        }
+    }, [userId]);
+    
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+    
+    
+    const [updateUserMutation] = useMutation(UPDATE_USER);
+    const updateUser = () => {
+        const variables = {
+        user: userId,
+        image: imageUrl,
+      };
+    
+        updateUserMutation({
+            variables,
+        })
+        .then((res) => {
+            console.log(res);
+            setImageUrl('');
+        })
+        .catch((err) => {
+            console.error(err);
+            setError("An error occurred while adding the business. Please try again.");
+        });
+    };
+    
+    
+    const handleImageUploaded = (imageUrl) => {
+        console.log('Image URLs:', imageUrl);
+        setImageUrl(imageUrl);
+        setUserData((prevData) => ({
+            ...prevData,
+            image: imageUrl,
+        }));
+    };
+
+
+
+
+
+
 
     return (
         <section className='relative w-full h-screen mx-auto'>
@@ -39,7 +94,22 @@ function User() {
                                     const cameraIcon = document.querySelector('.camera-icon');
                                     cameraIcon.style.display = 'none';
                                 }}>
-                                <img
+                              
+                                <label>Upload Image</label>
+                                <UploadImage 
+                                    onImageUploaded={handleImageUploaded}
+                                    id="img-profile"
+                                    style={{
+                                        width:'200px',
+                                        height:'200px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: '4px solid blue',
+                                        transition: 'transform 0.2s ease-in-out',
+                                      }}
+                                />
+   
+                                {/* <img
                                     className="profileImage"
                                     id="img-profile"
                                     style={{
@@ -52,8 +122,8 @@ function User() {
                                       }}
                                     src={ img}
                                     alt="Profile Picture" 
-                                ></img>
-                                <div>
+                                ></img> */}
+                                {/* <div>
                                     <label 
                                         htmlFor="imageUpload" 
                                         className="camera-icon"
@@ -74,13 +144,13 @@ function User() {
                                         onChange= {(event)=>{
                                             const file = event.target.files[0];
                                             if(file && file.type.startsWith('image')){
-                                                setimage(file);
+                                                setImageUrl(imageUrl);
                                                 // saveImage();
                                             } else{
-                                                setimage(img);
+                                                setImageUrl(img);
                                             }
-                                        }} />
-                                </div>
+                                        }} /> */}
+                                {/* </div> */}
                             </div>
                         </motion.div>
                     </Tilt>

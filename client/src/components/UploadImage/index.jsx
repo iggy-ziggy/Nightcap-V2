@@ -1,7 +1,7 @@
 import "./uploadPicture.css";
 import React, { useState, useEffect } from "react";
-import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import storage from "../../utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import storage from "../../utils/firebase";
 import { v4 } from "uuid";
 import PropTypes from 'prop-types';
 
@@ -10,7 +10,7 @@ function UploadImage({ onImageUploaded }) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [uploadMessage, setUploadMessage] = useState("");
   const [error, setError] = useState(null);
-  const [ uploadProgress, setUploadProgress] = useState(0);
+  // const [ uploadProgress, setUploadProgress] = useState(0);
 
 
   UploadImage.propTypes = {

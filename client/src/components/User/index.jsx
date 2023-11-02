@@ -6,109 +6,12 @@ import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
-// import { InputText } from 'primereact/inputtext';
 import Auth from '../../utils/auth';
 import img from '/no-image.jpg';
 import CameraIcon from '/camera-icon.svg';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/storage';
 
-// Initialize firebase for image storage
-const firebaseConfig = {
-    apiKey: 'AIzaSyATd-cXIDX-3YQV-rZU4XTAuu1hYUExl60',
-    authDomain: 'nightcap-24dad.firebaseapp.com',
-    projectId: 'nightcap-24dad',
-    storageBucket: 'nightcap-24dad.appspot.com',
-    messagingSenderId: '490604626131',
-    appId: '1:490604626131:web:61c02ae99f289711fe9426',
-  };
-  
-  firebase.initializeApp(firebaseConfig);
-  
-  const storage = firebase.storage();
-  const storageRef = storage.ref();
 
 function User() {
-    const [image, setimage] = useState("");
-    const [src, setsrc] = useState(false);
-    const [profile, setProfile] = useState([]);
-    // const [userId, setUserId] = useState("");
-    // const [imageUrls, setImageUrls] = useState([]);
-    // const [userData, setUserData] = useState({
-    //     userId:""
-    //     image: "",
-    //   });
-    // const [updateUserMutation] = useMutation(UPDATE_USER);
-
-    // const updateUser = () => {
-    //     const variables = {
-    //     user: userId,
-    //     image: imageUrl,
-    //   };
-    // updateUserMutation({
-    //     variables,
-    //   })
-
-//     .then((res) => {
-//         console.log(res);
-//         setImageUrl('');
-//       }
-//       .catch((err) => {
-//         console.error(err);
-//         setError("An error occurred while adding the business. Please try again.");
-//       });
-//   };
-
-// setImageUrl(imageUrl);
-//     setUserData((prevData) => ({
-//       ...prevData,
-//       image: imageUrl,
-
-    const profilePic = profile.map((item) => item.image);
-
-    const saveImage = () => {
-        console.log('Image selected');
-        setProfile([...profile, { image: image }]);
-        console.log('passed setProfile');
-        
-        if (image || profilePic) {
-            const imageRef = storageRef.child(`images/${Auth.getProfile().data.username}_profile.jpg`);
-            console.log('Image identified')
-            // Upload the image to Firebase Storage.
-            imageRef.put(image)
-            .then((snapshot) => {
-                console.log('Image uploaded to Firebase Storage');
-                snapshot.ref.getDownloadURL().then((downloadURL) => {
-                console.log('Download URL:', downloadURL);
-                setsrc(downloadURL);
-                // store image in local storage
-                localStorage.setItem('profileImage', downloadURL);
-                });
-            })
-            .catch((error) => {
-                console.error('Error uploading image to Firebase Storage:', error);
-            });
-        }
-    }
-
-    useEffect(() => {
-        // Retrieve the image URL from localStorage
-        const storedImageURL = localStorage.getItem('profileImage');
-
-        if (storedImageURL) {
-            console.log(storedImageURL);
-            setsrc(storedImageURL);
-        }
-    }, []);
-
-    // useEffect(() => {
-    //     const profile = AuthService.getProfile();
-    //     if (profile) {
-    //       const userId = profile.data._id;
-    //       console.log(userId);
-    //       setUserData({...UserData, user: userId });
-    //     }
-    //   }, [userId]);
 
     return (
         <section className='relative w-full h-screen mx-auto'>

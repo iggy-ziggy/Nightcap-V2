@@ -42,6 +42,7 @@ export const QUERY_SINGLE_THOUGHT = gql`
       createdAt
       comments {
         _id
+        commentAuthor
         commentText
         createdAt
       }
@@ -50,39 +51,28 @@ export const QUERY_SINGLE_THOUGHT = gql`
 `;
 
 export const QUERY_BUSINESS = gql`
-query business($businessId: ID!) {
-  business(businessId: $businessId) {
-    _id
-    bio
-    email
-    image
-    name
-    location
-    thoughts {
+  query business($businessId: ID!) {
+    business(businessId: $businessId) {
       _id
-      comments {
-        commentAuthor
-        commentText
-        createdAt
+      bio
+      email
+      image
+      name
+      location
+      website
+      thoughts {
         _id
+        createdAt
+        thoughtAuthor
+        thoughtTitle
+        thoughtText
+        comments {
+          _id
+          commentAuthor
+          commentText
+          createdAt
+        }
       }
-      createdAt
-      thoughtAuthor
-      thoughtText
     }
-    website
   }
-}`;
-
-// export const QUERY_USER_THOUGHTS = gql`
-//   query getUserThoughts($username: String!) {
-//     user(username: $username) {
-//       _id
-//       username
-//       email
-//       thoughts {
-//         _id
-//         thoughtText
-//         createdAt
-//       }
-//     }`;
+`;

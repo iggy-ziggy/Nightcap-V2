@@ -8,25 +8,6 @@ import ThoughtList from "../components/ThoughtList";
 import ThoughtForm from "../components/ThoughtForm";
 
 import User from "../components/User";
-// import Auth from '../utils/auth';
-// import img from '/no-image.jpg';
-// import firebase from 'firebase/compat/app';
-// import 'firebase/compat/storage';
-
-// // Initialize firebase for image storage
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyATd-cXIDX-3YQV-rZU4XTAuu1hYUExl60',
-//   authDomain: 'nightcap-24dad.firebaseapp.com',
-//   projectId: 'nightcap-24dad',
-//   storageBucket: 'nightcap-24dad.appspot.com',
-//   messagingSenderId: '490604626131',
-//   appId: '1:490604626131:web:61c02ae99f289711fe9426',
-// };
-
-// firebase.initializeApp(firebaseConfig);
-
-// const storage = firebase.storage();
-// const storageRef = storage.ref();
 
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);

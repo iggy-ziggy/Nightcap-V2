@@ -13,8 +13,7 @@ function MainSearch({ users, businesses }) {
     <div>
       <SearchBar placeholder="Search for users or businesses" data={searchData} />
     </div>
-    
   );
-}
+};
 
 export default MainSearch;

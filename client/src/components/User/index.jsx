@@ -13,7 +13,7 @@ function User() {
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
                 <div className='flex flex-col justify-center items-center mt-2'>
 
-                    <Tilt className="w-full sm:block hidden">
+                    <Tilt className="w-full md:block hidden">
                         <motion.div
                             variants={slideIn('left', "tween", 0.2, 1)}
                             className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'

@@ -96,9 +96,9 @@ function UploadBusiness() {
   return (
     <div className='h-full z-0 bg-primary'>
       <Navbar />
-      <div className={`${styles.paddingX} h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
+      <div className={`${styles.paddingX} pb-8 bg-primary h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
         <SideNav />
-        <div className='w-full gap-10 mx-auto relative'>
+        <div className='w-full px-8 gap-10 mx-auto relative'>
           <div className="flex flex-col gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full">
             <p className={styles.sectionSubText}>New to us?</p>
             <h3 className={styles.sectionHeadText}>Start here!</h3>

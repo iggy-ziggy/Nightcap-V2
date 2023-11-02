@@ -1,4 +1,4 @@
-import { BallCanvas, BigBallCanvas } from './canvas';
+import { BallCanvas, BigBallCanvas, EarthCanvas } from './canvas';
 import Hero from './Hero';
 import Navbar from './Navbar';
 import About from './About';
@@ -14,5 +14,6 @@ export {
   // Experience, 
   BallCanvas, 
   BigBallCanvas,
-  SideNav
+  SideNav,
+  EarthCanvas,
 }

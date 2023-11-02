@@ -32,6 +32,9 @@ const thoughtSchema = new Schema({
     type: String,
     trim: true,
   },
+  rate: {
+    type: Int
+  },
   createdAt: {
     type: Date,
     default: Date.now,

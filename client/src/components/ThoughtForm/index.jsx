@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { slideIn } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
-import { styles } from '../../styles';
 
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_BUSINESS } from '../../utils/queries';
@@ -57,12 +56,12 @@ const ThoughtForm = ( businessId ) => {
   };
 
   return (
-    <div className='mx-auto relative z-0'>
+    <div className="w-full flex flex-col">
       <motion.div
         variants={slideIn('left', "tween", 0.2, 1)}
-        className='w-full flex-col flex flex-[0.75] green-pink-gradient p-[1px] rounded-[20px]'
+        className='w-full green-pink-gradient p-[1px] rounded-[20px]'
       >
-        <div className='bg-black-100 rounded-[20px] py-5 px-6 min-h-[300px] flex justify-evenly items-center flex-col'>
+        <div className='bg-black-100 rounded-[20px] py-5 px-12 min-h-[300px] flex justify-evenly items-center flex-col'>
           <h3>What are you drinking?</h3>
 
           {Auth.loggedIn() ? (

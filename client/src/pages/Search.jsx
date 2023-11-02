@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_BUSINESSES, QUERY_USERS } from '../utils/queries';
 import { Link } from 'react-router-dom';
-import { styles } from '../styles';
-import { Navbar, SideNav } from '../components';
 
 function Search() {
   const [combinedData, setCombinedData] = useState([]);
@@ -66,9 +64,9 @@ function Search() {
     }
 
     return (
-      <div className={`${styles.paddingX} max-w-7xl mx-auto relative z-0`}>
+      <div className="results">
         {filteredData.map((item) => (
-          <Link key={item.id} to={`/${item.type}/${item.id}`} className="mt-12 flex-col flex gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full hover:shadow-card">
+          <Link key={item.id} to={`/${item.type}/${item.id}`} className="resultLink">
             <div className="result">
               {item.image ? (
                 <img className="resultImg" src={item.image} alt={item.name} />
@@ -80,8 +78,8 @@ function Search() {
                 />
               )}
               <div className="resultInfo">
-                <div className={styles.sectionSubText}>{item.name}</div>
-                <div className="text-white font-medium mb-2">{item.type}</div>
+                <div className="resultName">{item.name}</div>
+                <div className="resultType">{item.type}</div>
               </div>
             </div>
           </Link>
@@ -94,15 +92,13 @@ function Search() {
   }
 
   return (
-    <div className='z-0 bg-primary'>
-      <Navbar />
-      <div className={`${styles.paddingX} bg-primary h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
-        <SideNav />
-        <div className={`${styles.paddingX} max-w-7xl mx-auto z-0`}>
-          <SearchBar placeholder="Search for users or businesses..." data={combinedData} />
-          <div>{renderContent()}</div>
-        </div>
+    <div>
+      <div>
+        <SearchBar 
+          placeholder="Search for users or businesses..." 
+          data={combinedData} onFilter={handleFilter} onSearch={handleSearch} />
       </div>
+      <div>{renderContent()}</div>
     </div>
   )
 }

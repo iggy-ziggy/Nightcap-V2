@@ -8,7 +8,7 @@ import Auth from '../../utils/auth';
 
 function SideNav() {
     return (
-        <div className='container py-5 px-5 w-80 justify-center items-center bg-black-100 rounded-2xl border-2'>
+        <div className='container max-h-full py-5 px-5 w-80 justify-center items-center bg-black-100 rounded-2xl border-2 sm:block hidden'>
             <Tilt className="w-full justify-center items-center">
                 <div className='w-64 green-pink-gradient p-[1px] rounded-[180px] shadow-card'>
                     <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[250px] flex justify-evenly items-center flex-col'>

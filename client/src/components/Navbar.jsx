@@ -74,6 +74,18 @@ const Navbar = () => {
               </li>
               <li
                 className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                <Link to="/"
+                  onClick={() => {
+                    setActive("");
+                    // keeps track of where you are on the page
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  About
+                </Link>
+              </li>
+              <li
+                className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
                 <Link to="/" onClick={() => Auth.logout()}>
                   Logout
                 </Link>
@@ -123,14 +135,14 @@ const Navbar = () => {
                   </li>
                   <li
                     className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                    <Link to="/badges"
+                    <Link to="/"
                       onClick={() => {
                         setActive("");
                         // keeps track of where you are on the page
                         window.scrollTo(0, 0);
                       }}
                     >
-                      Badges
+                      About
                     </Link>
                   </li>
                   <li

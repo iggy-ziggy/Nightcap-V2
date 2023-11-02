@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client';
 import CommentList from '../components/CommentList';
 import CommentForm from '../components/CommentForm';
 import Navbar from '../components/Navbar';
+import { styles } from '../styles';
 
 import { QUERY_SINGLE_THOUGHT } from '../utils/queries';
 
@@ -23,9 +24,26 @@ const SingleThought = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="my-3">
+    <div className='z-0 bg-primary'>
       <Navbar />
-      <h3 className="card-header bg-dark text-light p-2 m-0">
+      <div className="mt-12 flex-col flex gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full">
+        <h4 className={styles.heroSubText}>
+          {thought.thoughtAuthor} <br />
+          <span className={styles.sectionSubText}>
+            created this review: {thought.createdAt}
+          </span>
+        </h4>
+        <div className="text-white font-medium mb-4">
+          <p>{thought.thoughtText}</p>
+        </div>
+      </div>
+      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <CommentForm thoughtId={thought._id} />
+      </div>
+      <div>
+        <CommentList comments={thought.comments} />
+      </div>
+      {/* <h3 className="card-header bg-dark text-light p-2 m-0">
         {thought.thoughtAuthor} <br />
         <span style={{ fontSize: '1rem' }}>
           had this thought on {thought.createdAt}
@@ -50,7 +68,7 @@ const SingleThought = () => {
       </div>
       <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
         <CommentForm thoughtId={thought._id} />
-      </div>
+      </div> */}
     </div>
   );
 };

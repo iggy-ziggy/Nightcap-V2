@@ -11,9 +11,9 @@ function MainSearch({ users, businesses }) {
 
   return (
     <div>
-      <SearchBar placeholder="Search for users or businesses" data={searchData} />
+      {/* <SearchBar placeholder="Search for users or businesses" data={searchData} />
     </div>
-    <div>
+    <div> */}
         
     </div>
   );

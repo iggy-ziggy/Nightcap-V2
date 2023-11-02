@@ -54,6 +54,7 @@ const resolvers = {
 
       const token = signToken(user);
       console.log('token')
+
       return { token, user };
     },
     addThought: async (parent, { thoughtText, thoughtAuthor, businessId }) => {

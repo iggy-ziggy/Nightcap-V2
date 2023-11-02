@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../components';
 import { motion } from 'framer-motion';
 import { styles } from '../styles';
@@ -15,6 +15,7 @@ import Auth from '../utils/auth';
 const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigateTo = useNavigate();
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -36,6 +37,10 @@ const LoginForm = (props) => {
       });
 
       Auth.login(data.login.token);
+      if (data.login.token) {
+        console.log(data);
+        navigateTo('/profile');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -92,7 +97,8 @@ const LoginForm = (props) => {
 
             <div className='flex flex-row sm:block justify-center'>
               <button
-                type="submit"
+                type="button"
+                onClick={handleFormSubmit}
                 className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white'
               >
                 Go!

@@ -15,6 +15,26 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_USERS = gql`
+  query users {
+    users {
+      _id
+      image
+      username
+    }
+  }
+`;
+
+export const QUERY_BUSINESSES = gql`
+  query businesses {
+    businesses {
+      _id
+      image
+      name
+    }
+  }
+`;
+
 export const QUERY_THOUGHTS = gql`
   query getThoughts {
     thoughts {

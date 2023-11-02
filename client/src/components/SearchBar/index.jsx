@@ -2,50 +2,64 @@ import React, { useState } from "react";
 import "./searchBar.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { BiSearchAlt } from 'react-icons/bi';
+import { BiSearchAlt, BiZoomIn } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 
-function SearchBar({placeholder, data, handleFilteredData}) {
+function SearchBar({ placeholder, data, onFilter, onSearch }) {
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
     const NavigateTo = useNavigate();
 
-
-    const handleFilter = (event) => {
-
-        const searchWord = event.target.value;
-        setWordEntered(searchWord);
-        console.log(searchWord);
-        const newFilter = data.filter((item) => {
-            return item.name && item.name.toString().toLowerCase().includes(searchWord.toString().toLowerCase());
-        });
-        if (searchWord === "") {
-            setFilteredData([]);    
-        } else {
-            setFilteredData(newFilter);
-            console.log(filteredData);
-            onFilter(newFilter);
-        }
-    };
-
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
+            clearInput();
             handleSearch();
         }
     }
+
     const handleSearch = () => {
+      clearInput();
+      if (onSearch) {
+        onSearch(wordEntered);
         NavigateTo(`/search?q=${wordEntered}`);
-      };
+      } else if (users) {
+        NavigateTo(`/search?q=${wordEntered}&type=users`);
+      } else {
+        NavigateTo(`/search?q=${wordEntered}&type=business`);
+      }
+    };
+
+
     const clearInput = () => {
         setFilteredData([]);
         setWordEntered("");
     };
 
+    const filterData = (event) => {
+      const searchWord = event.target.value;
+      const sanitizedSearchWord = searchWord.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    
+      setWordEntered(searchWord);
+      console.log(sanitizedSearchWord);
+    
+      const newFilter = data.filter((item) => {
+        const sanitizedItemName = item.name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+        return sanitizedItemName.includes(sanitizedSearchWord);
+      });
+    
+      if (searchWord === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilter);
+        onFilter(newFilter);
+      }
+    };
+
     return (
         <div className="search">
           <div className="searchInputs">
-            <input type="text" placeholder={placeholder} value={wordEntered} onChange={handleFilter} onKeyDown={handleKeyDown} />
+            <input type="text" placeholder={placeholder} value={wordEntered} onChange={filterData} onKeyDown={handleKeyDown} />
             <div className="searchIcon">
               {filteredData.length > 0 ? <BiSearchAlt onClick={handleSearch}/> : <AiOutlineClose id="clearBtn" onClick={clearInput} />}
             </div>
@@ -79,7 +93,7 @@ function SearchBar({placeholder, data, handleFilteredData}) {
                 <Link to={`/search?q=${wordEntered}&type=business`}>
                   View More Businesses
                 </Link>
-                <Link to={`/search?q=${wordEntered}&type=user`}>
+                <Link to={`/search?q=${wordEntered}&type=users`}>
                   View More Users
                 </Link>
               </div>
@@ -87,17 +101,18 @@ function SearchBar({placeholder, data, handleFilteredData}) {
           )}
         </div>
       );
-    }
+}
 
-    SearchBar.propTypes = {
-        placeholder: PropTypes.string.isRequired,
-        data: PropTypes.arrayOf(PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            type: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            image: PropTypes.string, // Allow null or string
-        })).isRequired,
-        handleFilter: PropTypes.func.isRequired,
-    };
+SearchBar.propTypes = {
+    placeholder: PropTypes.string.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string, // Allow null or string
+    })).isRequired,
+    onFilter: PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

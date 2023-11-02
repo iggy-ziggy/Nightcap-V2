@@ -25,7 +25,7 @@ function SearchBar({placeholder, data, handleFilteredData}) {
         } else {
             setFilteredData(newFilter);
             console.log(filteredData);
-            handleFilteredData(newFilter);
+            onFilter(newFilter);
         }
     };
 
@@ -97,7 +97,7 @@ function SearchBar({placeholder, data, handleFilteredData}) {
             name: PropTypes.string.isRequired,
             image: PropTypes.string, // Allow null or string
         })).isRequired,
-        handleFilteredData: PropTypes.func.isRequired,
+        handleFilter: PropTypes.func.isRequired,
     };
 
 export default SearchBar;

@@ -4,27 +4,31 @@
     "thoughtAuthor": "Brian Kernighan",
     "thoughtTitle": "Stormy Night",
     "thoughtPlace": "The Jasper",
-    "thoughtImage":"https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/dark_and_stormy_92822_16x9.jpg"
+    "thoughtImage":"https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/dark_and_stormy_92822_16x9.jpg",
+    "rate":""
   },
   {
     "thoughtText": "The perfect blend of coffee and vodka for a caffeinated kick and a smooth, sophisticated taste. Elevate your evening with this rich and indulgent cocktail.",
     "thoughtAuthor": "Jon Doe",
     "thoughtTitle": "Espresso Martini",
     "thoughtPlace": "Can Can Brasserie",
-    "thoughtImage":"https://hips.hearstapps.com/hmg-prod/images/210923-delish-seo-espresso-martini-horizontal-0087-eb-1633535263.jpg?crop=0.8893229166666666xw:1xh;center,top&resize=1200:*"
+    "thoughtImage":"https://hips.hearstapps.com/hmg-prod/images/210923-delish-seo-espresso-martini-horizontal-0087-eb-1633535263.jpg?crop=0.8893229166666666xw:1xh;center,top&resize=1200:*",
+    "rate":""
   },
   {
     "thoughtText": "Sip on the exotic flavors of rum, fruit, and spices in a tiki-themed drink that'll transport you to a beachfront paradise. Get ready to hula your way to a taste sensation! ",
     "thoughtAuthor": "Jane McMiller",
     "thoughtTitle": "Tiki Tuesday",
     "thoughtPlace": "Little Nickle",
-    "thoughtImage": "https://cf.ltkcdn.net/cocktails/images/std/307696-800x533-tiki-inspired-drinks.webp"
+    "thoughtImage": "https://cf.ltkcdn.net/cocktails/images/std/307696-800x533-tiki-inspired-drinks.webp",
+    "rate":""
   },
   {
     "thoughtText": "A zesty burst of citrusy refreshment! Pucker up to our tantalizing flavor and elevate your taste buds. Don't miss out on this delightful, tangy delight! ",
     "thoughtAuthor": "Kelly O'Hara",
     "thoughtTitle": "Lemon Drop",
     "thoughtPlace": "Metzger",
-    "thoughtImage":"https://www.acommunaltable.com/wp-content/uploads/2016/08/Bourbon-lemon-drop-martini-large-size.jpg"
+    "thoughtImage":"https://www.acommunaltable.com/wp-content/uploads/2016/08/Bourbon-lemon-drop-martini-large-size.jpg",
+    "rate":""
   }
 ]

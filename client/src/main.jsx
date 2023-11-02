@@ -12,6 +12,7 @@ import LandingPage from './pages/LandingPage';
 import Business from './pages/Business';
 import UploadBusiness from './pages/UploadBusiness';
 import Search from './pages/Search';
+import UserProfile from './pages/UserProfile';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,9 @@ const router = createBrowserRouter([
       }, {
         path: '/profile',
         element: <Profile />
+      }, {
+        path: '/profile/:id',
+        element: <UserProfile />
       }, {
         path: '/home',
         element: <Home />

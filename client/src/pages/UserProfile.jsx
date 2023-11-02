@@ -1,68 +1,39 @@
-import { motion } from 'framer-motion';
-import { styles } from '../../styles';
-import { slideIn } from '../../utils/motion';
-import ThoughtForm from '../ThoughtForm';
-import { SectionWrapper } from '../../hoc';
-import Badges from '../Badges';
-import { Tilt } from 'react-tilt';
-import { useParams } from 'react-router-dom';
+import { useQuery } from "@apollo/client";
+import AuthService from "../utils/auth";
+import ThoughtList from "../components/ThoughtList";
+import ThoughtForm from "../components/ThoughtForm";
+import { Navbar } from "../components";
+import { styles } from "../styles";
+import { useParams } from "react-router-dom";
+import { QUERY_THOUGHTS } from "../utils/queries";
+import User from "../components/User";
+// import { QUERY_USER_THOUGHTS } from "../utils/queries";
+const userParams() = {
+    const userId = useParams().userId;
+};
 
-function User() {
-    return (
-        <section className='relative w-full h-screen mx-auto'>
-            <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
-                <div className='flex flex-col justify-center items-center mt-2'>
+const UserProfile = (userId) => {
+  const { loading, data, userId  } = useQuery(QUERY_THOUGHTS);
+  // const { loading, data } = useQuery(QUERY_USER_THOUGHTS);
+  const thoughts = data?.thoughts || [];
 
-                    <Tilt className="xs:w-[300px] w-full">
-                        <motion.div
-                            variants={slideIn('left', "tween", 0.2, 1)}
-                            className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
-                        >
-                            <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'>
-                                <img
-                                    className="w-30 h-30 object-contain rounded-[180px]"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwnwAwRQEwRvQYCfXAgvnKUKjQ1KJKlNY2Yw&usqp=CAU"
-                                ></img>
-                            </div>
-                        </motion.div>
-                    </Tilt>
+  return (
+    <main className='relative z-0 bg-primary'>
+      <div className='bg-sunset-pattern bg-cover bg-no-repeat bg-center'>
+        <Navbar />
+        <User />
+      </div>
+      <div id="thought-list" className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
+        <h3 className={`${styles.sectionHeadText} py-20`}>Reviews</h3>
+        <p className={`${styles.sectionSubText} text-white-100`}>Leave a comment</p>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <ThoughtList thoughts={thoughts} title="Thoughts" />
+        )}
+      </div>
+    </main>
+  );
+};
 
-                </div>
-
-                <div className='flex flex-col justify-center items-center'>
-                    <motion.div
-                        variants={slideIn('right', "tween", 0.2, 1)}
-                    >
-                        <div className='sm:block hidden'>
-                            <p className={`${styles.heroHeadText} mt-2 text-center`}>Hi! I'm <span className='text-[#915eff]'>{Auth.getProfile().data.username}</span></p>
-                        </div>
-                    </motion.div>
-                    <div className='flex flex-col justify-center items-center mt-5'>
-                        <ThoughtForm />
-                    </div>
-                    <div className='absolute bottom-64 wfull flex justify-center items-center sm:block hidden'>
-                        <a href="#thought-list">
-                            <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
-                                <motion.div 
-                                    animate={{
-                                        y: [0, 24, 0]
-                                    }}
-                                    transition={{
-                                        duration: 1.5,
-                                        repeat: Infinity,
-                                        repeatType: 'loop',
-                                    }}
-                                    className='w-3 h-3 rounded-full bg-secondary mb-1'
-                                />
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-    );
-}
-
-export default SectionWrapper(User);
+export default UserProfile;

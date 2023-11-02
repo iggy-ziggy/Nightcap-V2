@@ -142,7 +142,7 @@ const ThoughtForm = ( businessId ) => {
                   value={thoughtImage}
                   onChange={handleChange}
                 ></input>
-                <div>
+                <Container>
                   {[...Array(5)].map((item, index) => {
                       const givenRating = index + 1;
                       return (
@@ -166,7 +166,7 @@ const ThoughtForm = ( businessId ) => {
                           </label>
                         );
                     })}
-                </div>
+                </Container>
 
                 <div>
                   <button className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white' type="submit">

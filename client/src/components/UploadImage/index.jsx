@@ -1,9 +1,9 @@
-import "./uploadPicture.css";
+// import "./uploadPicture.css";
 import React, { useState, useEffect, Component } from "react";
 // import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Firebase from "../../utils/firebase";
-import { v4 } from "uuid";
-import PropTypes from 'prop-types';
+// import { v4 } from "uuid";
+// import PropTypes from 'prop-types';
 import img from '/no-image.jpg';
 import CameraIcon from '/camera-icon.svg';
 

@@ -28,6 +28,10 @@ const thoughtSchema = new Schema({
     required: true,
     trim: true,
   },
+  thoughtImage: {
+    type: String,
+    trim: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

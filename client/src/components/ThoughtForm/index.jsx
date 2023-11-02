@@ -14,6 +14,7 @@ const ThoughtForm = ( businessId ) => {
   const [thoughtTitle, setThoughtTitle] = useState('');
   const [thoughtPlace, setThoughtPlace] = useState('');
   const [thoughtText, setThoughtText] = useState('');
+  const [thoughtImage, setThoughtImage] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
     refetchQueries: businessId
@@ -43,6 +44,7 @@ const ThoughtForm = ( businessId ) => {
           thoughtTitle,
           thoughtPlace,
           thoughtText,
+          thoughtImage,
           thoughtAuthor: Auth.getProfile().data.username,
           input
         },
@@ -50,6 +52,7 @@ const ThoughtForm = ( businessId ) => {
       setThoughtTitle('');
       setThoughtPlace('');
       setThoughtText('');
+      setThoughtImage('');
     } catch (err) {
       console.error(err);
     }
@@ -69,6 +72,10 @@ const ThoughtForm = ( businessId ) => {
 
     if (name === 'thoughtPlace') {
       setThoughtPlace(value);
+    }
+
+    if (name === 'thoughtImage') {
+      setThoughtImage(value);
     }
 
   };
@@ -125,6 +132,13 @@ const ThoughtForm = ( businessId ) => {
                   >
                     Character Count: {characterCount}/280</span>
                 </label>
+                <input 
+                  type="file" 
+                  id="drink-image" 
+                  name='thoughtImage' 
+                  value={thoughtImage}
+                  onChange={handleChange}
+                ></input>
                 {/* <label className='flex flex-col'>
                   <input type='checkbox' id='allergen1' value='nuts'></input>
                   <label for="allergen1">Nuts</label><br></br>

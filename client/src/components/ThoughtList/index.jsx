@@ -26,7 +26,12 @@ const ThoughtList = ({ thoughts }) => {
                 {' ' + 'on' + ' ' + thought.createdAt}
               </span>
             </h5>
-            
+            <img 
+              className="drink-image" 
+              src={thought.thoughtImage} 
+              style= {{width:'50%', height:'auto'}}
+              alt="Drink Photo"
+            />
             <div className="text-white font-medium mb-4">
               <p>{thought.thoughtText}</p>
             </div>

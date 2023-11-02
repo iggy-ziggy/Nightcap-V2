@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { styles } from '../../styles';
 import { slideIn } from '../../utils/motion';
 import React, {useState, useRef, useEffect} from 'react';
+import { useMutation } from "@apollo/client";
 import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
@@ -9,6 +10,9 @@ import { Tilt } from 'react-tilt';
 import Auth from '../../utils/auth';
 import img from '/no-image.jpg';
 import CameraIcon from '/camera-icon.svg';
+import  { useNavigate }  from "react-router-dom";
+// import UploadImage from "../components/UploadImage";
+// import { ADD_USER } from "../utils/mutations";
 
 
 function User() {

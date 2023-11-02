@@ -6,11 +6,13 @@ export const QUERY_USER = gql`
       _id
       username
       email
+      image
       thoughts {
         _id
         thoughtText
         thoughtTitle
         thoughtPlace
+        thoughtImage
         createdAt
       }
     }
@@ -25,6 +27,7 @@ export const QUERY_THOUGHTS = gql`
       thoughtTitle
       thoughtPlace
       thoughtAuthor
+      thoughtImage
       createdAt
       businessId
     }
@@ -39,6 +42,7 @@ export const QUERY_SINGLE_THOUGHT = gql`
       thoughtTitle
       thoughtPlace
       thoughtAuthor
+      thoughtImage
       createdAt
       comments {
         _id
@@ -66,6 +70,7 @@ export const QUERY_BUSINESS = gql`
         thoughtAuthor
         thoughtTitle
         thoughtText
+        thoughtImage
         comments {
           _id
           commentAuthor

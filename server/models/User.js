@@ -22,6 +22,10 @@ const userSchema = new Schema({
   bio: {
     type: String,
   },
+  image: {
+    type: String,
+    trim: true,
+  },
   thoughts: [
     {
       type: Schema.Types.ObjectId,

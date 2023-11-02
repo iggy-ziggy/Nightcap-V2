@@ -13,12 +13,12 @@ function User() {
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
                 <div className='flex flex-col justify-center items-center mt-2'>
 
-                    <Tilt className="xs:w-[300px] w-full">
+                    <Tilt className="w-full md:block hidden">
                         <motion.div
                             variants={slideIn('left', "tween", 0.2, 1)}
                             className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
                         >
-                            <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'>
+                            <div className='bg-tertiary rounded-[180px] py-5 px-5 flex justify-evenly items-center flex-col'>
                                 <img
                                     className="w-30 h-30 object-contain rounded-[180px]"
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwnwAwRQEwRvQYCfXAgvnKUKjQ1KJKlNY2Yw&usqp=CAU"
@@ -40,7 +40,7 @@ function User() {
                     <div className='flex flex-col justify-center items-center mt-5'>
                         <ThoughtForm />
                     </div>
-                    <div className='absolute bottom-64 wfull flex justify-center items-center sm:block hidden'>
+                    <div className='absolute bottom-20 wfull flex justify-center items-center sm:block hidden'>
                         <a href="#thought-list">
                             <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
                                 <motion.div 

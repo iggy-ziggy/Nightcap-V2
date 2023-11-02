@@ -53,9 +53,8 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div>
-
-      <div className={`${styles.padding} max-w-7xl mx-auto relative z-0 xl:mt-12 xl:flex-row flex-col flex gap-10 overflow-hidden`}>
+    <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
+      <div className='xl:mt-12 xl:flex-row flex-col flex gap-10 overflow-hidden'>
         <motion.div
           variants={slideIn('left', "tween", 0.2, 1)}
           className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
@@ -120,60 +119,13 @@ const LoginForm = (props) => {
       </div>
 
     </div>
-    // <main className="flex-row justify-center mb-4">
-    //   <div className="col-12 col-lg-10">
-    //     <div className="card">
-    //       <h4 className="card-header bg-dark text-light p-2">Login</h4>
-    //       <div className="card-body">
-    //         {data ? (
-    //           <p>
-    //             Success! You may now head{' '}
-    //             <Link to="/">back to the homepage.</Link>
-    //           </p>
-    //         ) : (
-    //           <form onSubmit={handleFormSubmit}>
-    //             <input
-    //               className="form-input"
-    //               placeholder="Your email"
-    //               name="email"
-    //               type="email"
-    //               value={formState.email}
-    //               onChange={handleChange}
-    //             />
-    //             <input
-    //               className="form-input"
-    //               placeholder="******"
-    //               name="password"
-    //               type="password"
-    //               value={formState.password}
-    //               onChange={handleChange}
-    //             />
-    //             <button
-    //               className="btn btn-block btn-primary"
-    //               style={{ cursor: 'pointer' }}
-    //               type="submit"
-    //             >
-    //               Submit
-    //             </button>
-    //           </form>
-    //         )}
-
-    //         {error && (
-    //           <div className="my-3 p-3 bg-danger text-white">
-    //             {error.message}
-    //           </div>
-    //         )}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </main>
   );
 };
 
 const Login = () => {
   return (
     <div className='relative z-0 bg-primary w-full h-screen mx-auto'>
-      <div className='bg-space-pattern bg-cover bg-no-repeat bg-center'>
+      <div className='bg-space-pattern h-screen bg-cover bg-no-repeat bg-center'>
         <Navbar />
         <LoginForm />
       </div>

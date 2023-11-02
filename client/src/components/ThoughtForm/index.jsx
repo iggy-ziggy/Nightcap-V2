@@ -87,6 +87,10 @@ const ThoughtForm = ( businessId ) => {
       setThoughtImage(value);
     }
 
+    if (name === 'rate') {
+      setRate(value);
+    }
+
   };
 
   return (
@@ -155,7 +159,9 @@ const ThoughtForm = ( businessId ) => {
                           <label>
                               <Radio
                                   type="radio"
+                                  name='rate'
                                   value={givenRating}
+                                  onChange={handleChange}
                                   onClick={() => {
                                       setRate(givenRating);
                                   }}

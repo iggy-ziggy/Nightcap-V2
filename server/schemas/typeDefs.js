@@ -10,12 +10,13 @@ const typeDefs = `
 
   type Thought {
     _id: ID
-    thoughtText: String
-    thoughtTitle: String
+    thoughtText: String!
+    thoughtTitle: String!
     thoughtPlace: String
-    thoughtAuthor: String
+    thoughtAuthor: String!
     thoughtImage: String
-    createdAt: String
+    createdAt: String!
+    rate: [Rate]
     comments: [Comment]!
     businessId: ID
   }

@@ -13,43 +13,42 @@ import UploadImage from "../../components/UploadImage";
 import { UPDATE_USER } from "../../utils/mutations";
 
 function User() {
-    const [userId, setUserId] = useState("");
-    const [imageUrl, setImageUrl] = useState([]);
+    const [error, setError] = useState(null);
+    const [imageUrl, setImageUrl] = useState("");
     const [userData, setUserData] = useState({
         userId: "",
         image: "",
     });
+    const [username, setUsername] = useState("");
+
 
     const handleImageUploaded = (imageUrl) => {
-        console.log('Image URLs:', imageUrl);
+        console.log('Image URL:', imageUrl);
         setImageUrl(imageUrl);
-        setUserData((prevData) => ({
-            ...prevData,
-            image: imageUrl,
-        }));
         updateUser();
     };
 
     useEffect(() => {
         const profile = Auth.getProfile();
         if (profile) {
-            const userId = profile.data._id;
-            console.log(userId);
-            setUserData({ ...userData, user: userId });
+            const username = profile.data.username;
+            console.log(username);
+            setUserData({ ...userData, username: username });
         }
     }, []);
 
     useEffect(() => {
-        if (userId && imageUrl) {
+        if (username && imageUrl) {
+            setUsername(username);
             updateUser();
         }
-    }, [userId, imageUrl]);
+    }, [username, imageUrl]);
 
     const [updateUserMutation] = useMutation(UPDATE_USER);
 
     const updateUser = () => {
         const variables = {
-            user: userId,
+            username: username,
             image: imageUrl,
         };
 
@@ -65,7 +64,7 @@ function User() {
             })
             .catch((err) => {
                 console.error(err);
-                setError("An error occurred while adding the business. Please try again.");
+                setError("An error occurred while adding the user. Please try again.");
             });
     };
 

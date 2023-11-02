@@ -38,7 +38,7 @@ import {
         return{
           ...state,
           users: state.users.map(user =>
-            user.id === action.user.id ? action.user : user
+            user.username=== action.user.username ? action.user : user
           ),
         };
 

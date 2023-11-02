@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import React, { useState, useRef } from 'react';
@@ -21,6 +21,7 @@ const Form = () => {
     password: '',
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
+  const navigateTo = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,6 +42,9 @@ const Form = () => {
       });
 
       Auth.login(data.addUser.token);
+      if (data.addUser.token) {
+        navigateTo('/profile');
+      }
     } catch (e) {
       console.error(e);
     }

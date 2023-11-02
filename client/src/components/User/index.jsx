@@ -42,6 +42,8 @@ function User() {
             image: imageUrl,
         };
 
+        console.log(variables);
+
         updateUserMutation({
             variables,
         })
@@ -63,6 +65,7 @@ function User() {
             ...prevData,
             image: imageUrl,
         }));
+        updateUser();
     };
 
 

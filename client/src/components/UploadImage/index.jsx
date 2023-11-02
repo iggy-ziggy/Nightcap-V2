@@ -61,7 +61,15 @@ function UploadImage({ onImageUploaded }) {
   }, [selectedImages]);
 
   return (
-    <div className = "upload">
+    <div className = "w-64 h-64 flex justify-evenly items-center flex-col">
+      <div className="flex justify-evenly items-center flex-col">
+        {imagePreviews.length > 0 &&
+          imagePreviews.map((preview, index) => (
+            <img className="w-64 h-64 object-contain rounded-[180px]" src={preview} alt={`Selected ${index}`} key={`preview-${index}`} />
+          ))}
+        {uploadMessage && <p>{uploadMessage}</p>}
+        {error && <p className="error">{error}</p>}
+      </div>
       <input
         type="file"
         onChange={(event) => {
@@ -71,14 +79,6 @@ function UploadImage({ onImageUploaded }) {
         multiple
       />
       <button onClick={uploadFile}>Upload Images</button>
-      <div className = "imgs">
-        {imagePreviews.length > 0 &&
-          imagePreviews.map((preview, index) => (
-            <img src={preview} alt={`Selected ${index}`} key={`preview-${index}`} />
-          ))}
-        {uploadMessage && <p>{uploadMessage}</p>}
-        {error && <p className="error">{error}</p>}
-      </div>
     </div>
   );
 }

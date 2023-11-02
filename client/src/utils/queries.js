@@ -14,6 +14,7 @@ export const QUERY_USER = gql`
         thoughtPlace
         thoughtImage
         createdAt
+        rate
       }
     }
   }
@@ -30,6 +31,7 @@ export const QUERY_THOUGHTS = gql`
       thoughtImage
       createdAt
       businessId
+      rate
     }
   }
 `;
@@ -44,6 +46,7 @@ export const QUERY_SINGLE_THOUGHT = gql`
       thoughtAuthor
       thoughtImage
       createdAt
+      rate
       comments {
         _id
         commentAuthor

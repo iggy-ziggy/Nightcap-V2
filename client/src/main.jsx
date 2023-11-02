@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import App from './App.jsx'
 import Home from './pages/Home';
 import Signup from './pages/Signup';
@@ -8,15 +9,8 @@ import About from './pages/About.jsx';
 import Profile from './pages/Profile';
 import SingleThought from './pages/SingleThought';
 import ErrorPage from './pages/ErrorPage';
-import LandingPage from './pages/LandingPage';
 import Business from './pages/Business';
 import UploadBusiness from './pages/UploadBusiness';
-import Search from './pages/Search';
-import BadgePage from './pages/BadgePage.jsx';
-import UserProfile from './pages/UserProfile';
-import Business from './pages/Business';
-import UploadBusiness from './pages/UploadBusiness';
-
 
 const router = createBrowserRouter([
   {
@@ -26,19 +20,16 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />
+        element: <Home />
       }, {
         path: '/login',
         element: <Login />
       }, {
-        path: '/business/:businessId',
+        path: '/business/:id',
         element: <Business />
       }, {
         path: '/business/upload',
         element: <UploadBusiness />
-      }, {
-        path: '/search',
-        element: <Search />
       }, {
         path: '/signup',
         element: <Signup />
@@ -51,15 +42,6 @@ const router = createBrowserRouter([
       }, {
         path: '/profile',
         element: <Profile />
-      }, {
-        path: '/profile/:id',
-        element: <UserProfile />
-      }, {
-        path: '/home',
-        element: <Home />
-      }, {
-        path: '/badges',
-        element: <BadgePage />
       }
     ]
   },

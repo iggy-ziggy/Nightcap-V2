@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { QUERY_BUSINESS } from '../utils/queries'; 
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
+import { Navbar } from '../components';
 
 function Business() {
   const [businessData, setBusinessData] = useState({});
@@ -31,6 +32,7 @@ function Business() {
 
   return (
     <div>
+      <Navbar />
       <div>
         {businessData && (
           <div className="card">

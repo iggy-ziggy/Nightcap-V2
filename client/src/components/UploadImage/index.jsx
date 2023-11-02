@@ -39,6 +39,7 @@ function UploadImage({ onImageUploaded }) {
           setSelectedImages([]);
           setUploadMessage("Images were successfully uploaded.");
           setImagePreviews(urls);
+
         }
       })
       .catch((error) => {

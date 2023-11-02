@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
+
 import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage";
 import AuthService from "../utils/auth";
@@ -24,6 +25,7 @@ function UploadBusiness() {
     location: "",
   });
   const navigateTo = useNavigate();
+
 
 
   useEffect(() => {
@@ -66,6 +68,7 @@ function UploadBusiness() {
       .then((res) => {
         console.log(res);
         navigateTo(`/business/${res.data.addBusiness._id}`);
+
         setBusinessData({
           user: "",
           name: "",

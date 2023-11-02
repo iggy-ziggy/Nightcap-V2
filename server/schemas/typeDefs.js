@@ -8,6 +8,18 @@ const typeDefs = `
     thoughts: [Thought]!
   }
 
+  type Business {
+    _id: ID!
+    name: String!
+    email: String
+    bio: String
+    likes: [User]
+    image: String
+    website: String
+    location: String
+    thoughts: [Thought]
+}
+
   type Thought {
     _id: ID
     thoughtText: String
@@ -55,6 +67,7 @@ const typeDefs = `
     addBusiness(name: String!, email: String, phoneNumber: String, bio: String, image: [String], website: String, location: String): Business
     login(email: String!, password: String!): Auth
     addThought(thoughtText: String!, thoughtAuthor: String!, businessId: ID ): Thought
+
     addComment(
       thoughtId: ID!
       commentText: String!

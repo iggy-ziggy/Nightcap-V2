@@ -14,6 +14,9 @@ import UploadBusiness from './pages/UploadBusiness';
 import Search from './pages/Search';
 import BadgePage from './pages/BadgePage.jsx';
 import UserProfile from './pages/UserProfile';
+import Business from './pages/Business';
+import UploadBusiness from './pages/UploadBusiness';
+
 
 const router = createBrowserRouter([
   {

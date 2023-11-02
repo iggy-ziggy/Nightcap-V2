@@ -88,6 +88,8 @@ query business($businessId: ID!) {
   }
 }`;
 
+
+// export const QUERY_SINGLE_BUSINESS = gql`
 // export const QUERY_USER_THOUGHTS = gql`
 //   query getUserThoughts($username: String!) {
 //     user(username: $username) {

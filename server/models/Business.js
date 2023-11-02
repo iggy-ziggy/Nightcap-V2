@@ -26,6 +26,8 @@ const businessSchema = new Schema({
 //   cocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
 });
 
+
 const Business = model("Business", businessSchema);
+
 
 module.exports = Business;

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
+
 import { QUERY_BUSINESS } from '../utils/queries';
 import ThoughtForm from '../components/ThoughtForm';
 import ThoughtList from '../components/ThoughtList';
@@ -11,7 +12,6 @@ function Business() {
   const [businessData, setBusinessData] = useState({});
   const [thoughts, setThoughts] = useState([]);
   const { businessId } = useParams();
-
   const { loading, error, data } = useQuery(QUERY_BUSINESS, {
     variables: { businessId },
   });

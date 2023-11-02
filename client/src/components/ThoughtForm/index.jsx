@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+
 import { slideIn } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
 import { styles } from '../../styles';
+
+
+import { useParams } from "react-router-dom";
 
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_BUSINESS } from '../../utils/queries';
@@ -14,13 +18,20 @@ import Auth from '../../utils/auth';
 const ThoughtForm = ( businessId ) => {
   const [thoughtText, setThoughtText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
+
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
-    refetchQueries: businessId
-      ? [
-          { query: QUERY_THOUGHTS, variables: { businessId } },
-          { query: QUERY_BUSINESS, variables: { businessId } },
-        ]
-      : [{ query: QUERY_THOUGHTS }],
+    refetchQueries: [
+      {
+        query: QUERY_THOUGHTS,
+        variables: {},
+      },
+      businessId
+        ? {
+            query: QUERY_BUSINESS,
+            variables: { businessId },
+          }
+        : null,
+    ],
   });
 
   const handleFormSubmit = async (event) => {
@@ -38,7 +49,12 @@ const ThoughtForm = ( businessId ) => {
       console.log(input);
   
       const { data } = await addThought({
-        variables: input,
+
+        variables: {
+          thoughtText,
+          thoughtAuthor: Auth.getProfile().data.username,
+          businessId: businessId || null,
+        },
       });
       
       setThoughtText('');

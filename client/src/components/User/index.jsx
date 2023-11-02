@@ -9,7 +9,7 @@ import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
 import Auth from '../../utils/auth';
 import UploadImage from "../../components/UploadImage";
-import CameraIcon from '/camera-icon.svg';
+// import CameraIcon from '/camera-icon.svg';
 import { UPDATE_USER } from "../../utils/mutations";
 
 function User() {
@@ -20,6 +20,15 @@ function User() {
         image: "",
     });
 
+    const handleImageUploaded = (imageUrl) => {
+        console.log('Image URLs:', imageUrl);
+        setImageUrl(imageUrl);
+        setUserData((prevData) => ({
+            ...prevData,
+            image: imageUrl,
+        }));
+        updateUser();
+    };
 
     useEffect(() => {
         const profile = Auth.getProfile();
@@ -28,14 +37,16 @@ function User() {
             console.log(userId);
             setUserData({ ...userData, user: userId });
         }
-    }, [userId]);
+    }, []);
 
     useEffect(() => {
-        console.log(userData);
-    }, [userData]);
-
+        if (userId && imageUrl) {
+            updateUser();
+        }
+    }, [userId, imageUrl]);
 
     const [updateUserMutation] = useMutation(UPDATE_USER);
+
     const updateUser = () => {
         const variables = {
             user: userId,
@@ -50,22 +61,12 @@ function User() {
             .then((res) => {
                 console.log(res);
                 setImageUrl('');
+
             })
             .catch((err) => {
                 console.error(err);
                 setError("An error occurred while adding the business. Please try again.");
             });
-    };
-
-
-    const handleImageUploaded = (imageUrl) => {
-        console.log('Image URLs:', imageUrl);
-        setImageUrl(imageUrl);
-        setUserData((prevData) => ({
-            ...prevData,
-            image: imageUrl,
-        }));
-        updateUser();
     };
 
 

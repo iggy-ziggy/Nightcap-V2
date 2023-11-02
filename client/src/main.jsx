@@ -13,6 +13,7 @@ import LandingPage from './pages/LandingPage';
 import Business from './pages/Business';
 import UploadBusiness from './pages/UploadBusiness';
 import Search from './pages/Search';
+import BadgePage from './pages/BadgePage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,9 @@ const router = createBrowserRouter([
       }, {
         path: '/home',
         element: <Home />
+      }, {
+        path: '/badges',
+        element: <BadgePage />
       }
     ]
   },

@@ -5,11 +5,9 @@ import React, {useState, useRef, useEffect} from 'react';
 import { useMutation } from "@apollo/client";
 import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
-import Badges from '../Badges';
+// import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
 import Auth from "../../utils/auth";
-import img from '/no-image.jpg';
-import CameraIcon from '/camera-icon.svg';
 import UploadImage from "../../components/UploadImage";
 import { UPDATE_USER } from "../../utils/mutations";
 
@@ -20,8 +18,7 @@ function User() {
         userId:"",
         image: "",
     });
-    
-    
+     
     useEffect(() => {
         const profile = Auth.getProfile();
         if (profile) {
@@ -34,7 +31,6 @@ function User() {
     useEffect(() => {
         console.log(userData);
     }, [userData]);
-    
     
     const [updateUserMutation] = useMutation(UPDATE_USER);
     const updateUser = () => {
@@ -56,7 +52,6 @@ function User() {
         });
     };
     
-    
     const handleImageUploaded = (imageUrl) => {
         console.log('Image URLs:', imageUrl);
         setImageUrl(imageUrl);
@@ -66,97 +61,20 @@ function User() {
         }));
     };
 
-
-
-
-
-
-
     return (
         <section className='relative w-full h-screen mx-auto'>
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
                 <div className='flex flex-col justify-center items-center mt-2'>
-
                     <Tilt className="xs:w-[300px] w-full">
                         <motion.div
                             variants={slideIn('left', "tween", 0.2, 1)}
-                            className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
-                        >
-                            <div 
-                                className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'
-                                onMouseEnter={() => {
-                                    // On hover, make the camera icon visible
-                                    const cameraIcon = document.querySelector('.camera-icon');
-                                    cameraIcon.style.display = 'block';
-                                }}
-                                onMouseLeave={() => {
-                                    // On hover exit, hide the camera icon
-                                    const cameraIcon = document.querySelector('.camera-icon');
-                                    cameraIcon.style.display = 'none';
-                                }}>
-                              
-                                <label>Upload Image</label>
-                                <UploadImage 
-                                    onImageUploaded={handleImageUploaded}
-                                    id="img-profile"
-                                    style={{
-                                        width:'200px',
-                                        height:'200px',
-                                        borderRadius: '50%',
-                                        objectFit: 'cover',
-                                        border: '4px solid blue',
-                                        transition: 'transform 0.2s ease-in-out',
-                                      }}
-                                />
-   
-                                {/* <img
-                                    className="profileImage"
-                                    id="img-profile"
-                                    style={{
-                                        width:'200px',
-                                        height:'200px',
-                                        borderRadius: '50%',
-                                        objectFit: 'cover',
-                                        border: '4px solid blue',
-                                        transition: 'transform 0.2s ease-in-out',
-                                      }}
-                                    src={ img}
-                                    alt="Profile Picture" 
-                                ></img> */}
-                                {/* <div>
-                                    <label 
-                                        htmlFor="imageUpload" 
-                                        className="camera-icon"
-                                        style={{
-                                            display: 'none', // Initially, hide the camera icon
-                                            position: 'absolute',
-                                            top: '50%', 
-                                            left: '50%', 
-                                            transform: 'translate(-50%, -50%)', // Center the icon using transform
-                                        }}>
-                                        <img src={CameraIcon} alt="Camera Icon" />
-                                    </label>
-                                    <input 
-                                        type="file"
-                                        accept="image/*"
-                                        id="imageUpload"
-                                        style={{ display: 'none' }}
-                                        onChange= {(event)=>{
-                                            const file = event.target.files[0];
-                                            if(file && file.type.startsWith('image')){
-                                                setImageUrl(imageUrl);
-                                                // saveImage();
-                                            } else{
-                                                setImageUrl(img);
-                                            }
-                                        }} /> */}
-                                {/* </div> */}
-                            </div>
+                            className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'>
+                            
+                            <UploadImage onImageUploaded={handleImageUploaded}/>
+                        
                         </motion.div>
                     </Tilt>
-
                 </div>
-
                 <div className='flex flex-col justify-center items-center'>
                     <motion.div
                         variants={slideIn('right', "tween", 0.2, 1)}
@@ -186,9 +104,7 @@ function User() {
                         </a>
                     </div>
                 </div>
-
             </div>
-
         </section>
     );
 }

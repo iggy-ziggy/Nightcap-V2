@@ -46,6 +46,7 @@ export const ADD_THOUGHT = gql`
       thoughtPlace
       thoughtAuthor
       image
+      rate
       createdAt
       comments {
         _id

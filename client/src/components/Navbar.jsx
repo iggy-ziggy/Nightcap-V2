@@ -34,7 +34,7 @@ const Navbar = () => {
         >
           <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
             <Link
-              // to="/home"
+              to="/home"
               className='flex items-center gap-2'
               onClick={() => {
                 setActive("");
@@ -49,39 +49,9 @@ const Navbar = () => {
             <ul className='list-none hidden sm:flex flex-row gap-10'>
               <li
                 className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                <Link to="/profile"
-                  onClick={() => {
-                    setActive("");
-                    // keeps track of where you are on the page
-                    window.scrollTo(0, 0);
-                  }}
-                >
+                <Link to="/profile">
                   Profile
                   {/* <UserProfilePicture user={currentUser} /> */}
-                </Link>
-              </li>
-              <li
-                className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                <Link to="/home"
-                  onClick={() => {
-                    setActive("");
-                    // keeps track of where you are on the page
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  Home
-                </Link>
-              </li>
-              <li
-                className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                <Link to="/"
-                  onClick={() => {
-                    setActive("");
-                    // keeps track of where you are on the page
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  About
                 </Link>
               </li>
               <li
@@ -99,67 +69,13 @@ const Navbar = () => {
                 <ul className='list-none flex justify-end items-start flex-col gap-4'>
                   <li
                     className='text-secondary hover:text-white text-[16px] font-medium cursor-pointer'>
-                    <Link to="/profile"
-                      onClick={() => {
-                        setActive("");
-                        // keeps track of where you are on the page
-                        window.scrollTo(0, 0);
-                      }}
-                    >
+                    <Link to="/profile">
                       Profile
                     </Link>
                   </li>
                   <li
-                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                    <Link to="/home"
-                      onClick={() => {
-                        setActive("");
-                        // keeps track of where you are on the page
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      Home
-                    </Link>
-                  </li>
-                  <li
-                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                    <Link to="/search"
-                      onClick={() => {
-                        setActive("");
-                        // keeps track of where you are on the page
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      Search
-                    </Link>
-                  </li>
-                  <li
-                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                    <Link to="/"
-                      onClick={() => {
-                        setActive("");
-                        // keeps track of where you are on the page
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      About
-                    </Link>
-                  </li>
-                  <li
-                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                    <Link to="/business/upload"
-                      onClick={() => {
-                        setActive("");
-                        // keeps track of where you are on the page
-                        window.scrollTo(0, 0);
-                      }}
-                    >
-                      Upload Business
-                    </Link>
-                  </li>
-                  <li
                     className='text-secondary hover:text-white text-[16px] font-medium cursor-pointer'>
-                    <Link to="/" onClick={() => Auth.logout()}>
+                    <Link to="/">
                       Logout
                     </Link>
                   </li>

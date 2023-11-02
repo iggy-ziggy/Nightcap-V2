@@ -1,13 +1,22 @@
 import { motion } from 'framer-motion';
 import { styles } from '../../styles';
 import { slideIn } from '../../utils/motion';
+import React, {useState, useRef, useEffect} from 'react';
+import { useMutation } from "@apollo/client";
 import ThoughtForm from '../ThoughtForm';
 import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
 import Auth from '../../utils/auth';
+import img from '/no-image.jpg';
+import CameraIcon from '/camera-icon.svg';
+import  { useNavigate }  from "react-router-dom";
+// import UploadImage from "../components/UploadImage";
+// import { ADD_USER } from "../utils/mutations";
+
 
 function User() {
+
     return (
         <section className='relative w-full h-screen mx-auto'>
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
@@ -18,11 +27,60 @@ function User() {
                             variants={slideIn('left', "tween", 0.2, 1)}
                             className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
                         >
-                            <div className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'>
+                            <div 
+                                className='bg-tertiary rounded-[180px] py-5 px-5 min-h-[300px] flex justify-evenly items-center flex-col'
+                                onMouseEnter={() => {
+                                    // On hover, make the camera icon visible
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'block';
+                                }}
+                                onMouseLeave={() => {
+                                    // On hover exit, hide the camera icon
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'none';
+                                }}>
                                 <img
-                                    className="w-30 h-30 object-contain rounded-[180px]"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwnwAwRQEwRvQYCfXAgvnKUKjQ1KJKlNY2Yw&usqp=CAU"
+                                    className="profileImage"
+                                    id="img-profile"
+                                    style={{
+                                        width:'200px',
+                                        height:'200px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: '4px solid blue',
+                                        transition: 'transform 0.2s ease-in-out',
+                                      }}
+                                    src={ img}
+                                    alt="Profile Picture" 
                                 ></img>
+                                <div>
+                                    <label 
+                                        htmlFor="imageUpload" 
+                                        className="camera-icon"
+                                        style={{
+                                            display: 'none', // Initially, hide the camera icon
+                                            position: 'absolute',
+                                            top: '50%', 
+                                            left: '50%', 
+                                            transform: 'translate(-50%, -50%)', // Center the icon using transform
+                                        }}>
+                                        <img src={CameraIcon} alt="Camera Icon" />
+                                    </label>
+                                    <input 
+                                        type="file"
+                                        accept="image/*"
+                                        id="imageUpload"
+                                        style={{ display: 'none' }}
+                                        onChange= {(event)=>{
+                                            const file = event.target.files[0];
+                                            if(file && file.type.startsWith('image')){
+                                                setimage(file);
+                                                // saveImage();
+                                            } else{
+                                                setimage(img);
+                                            }
+                                        }} />
+                                </div>
                             </div>
                         </motion.div>
                     </Tilt>

@@ -11,7 +11,10 @@ import { QUERY_THOUGHTS, QUERY_BUSINESS } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const ThoughtForm = ( businessId ) => {
+  const [thoughtTitle, setThoughtTitle] = useState('');
+  const [thoughtPlace, setThoughtPlace] = useState('');
   const [thoughtText, setThoughtText] = useState('');
+  const [thoughtImage, setThoughtImage] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
     refetchQueries: businessId
@@ -37,10 +40,19 @@ const ThoughtForm = ( businessId ) => {
       console.log(input);
   
       const { data } = await addThought({
-        variables: input,
+        variables: {
+          thoughtTitle,
+          thoughtPlace,
+          thoughtText,
+          thoughtImage,
+          thoughtAuthor: Auth.getProfile().data.username,
+          input
+        },
       });
-      
+      setThoughtTitle('');
+      setThoughtPlace('');
       setThoughtText('');
+      setThoughtImage('');
     } catch (err) {
       console.error(err);
     }
@@ -53,6 +65,19 @@ const ThoughtForm = ( businessId ) => {
       setThoughtText(value);
       setCharacterCount(value.length);
     }
+
+    if (name === 'thoughtTitle') {
+      setThoughtTitle(value);
+    }
+
+    if (name === 'thoughtPlace') {
+      setThoughtPlace(value);
+    }
+
+    if (name === 'thoughtImage') {
+      setThoughtImage(value);
+    }
+
   };
 
   return (
@@ -71,10 +96,34 @@ const ThoughtForm = ( businessId ) => {
                 onSubmit={handleFormSubmit}
               >
                 <label className='flex flex-col'>
+                  <textarea 
+                      rows="1"
+                      type='text' 
+                      id='title'
+                      name='thoughtTitle'
+                      placeholder='Drink Name'
+                      value={thoughtTitle}
+                      onChange={handleChange}
+                      className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                    />
+                </label>
+                <label className='flex flex-col'>
+                  <textarea 
+                    rows="2"
+                    type='text' 
+                    id='business'
+                    name='thoughtPlace'
+                    placeholder='Place of Business'
+                    value={thoughtPlace}
+                    onChange={handleChange}
+                    className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                  />
+                </label>
+                <label className='flex flex-col'>
                   <textarea
                     rows="4"
                     name="thoughtText"
-                    placeholder="Here's a new thought..."
+                    placeholder="Add a description of the drink ingredients and experience!"
                     value={thoughtText}
                     onChange={handleChange}
                     className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
@@ -83,6 +132,23 @@ const ThoughtForm = ( businessId ) => {
                   >
                     Character Count: {characterCount}/280</span>
                 </label>
+                <input 
+                  type="file" 
+                  id="drink-image" 
+                  name='thoughtImage' 
+                  value={thoughtImage}
+                  onChange={handleChange}
+                ></input>
+                {/* <label className='flex flex-col'>
+                  <input type='checkbox' id='allergen1' value='nuts'></input>
+                  <label for="allergen1">Nuts</label><br></br>
+                  <input type='checkbox' id='allergen2' value='egg'></input>
+                  <label for="allergen2">Egg</label><br></br>
+                  <input type='checkbox' id='allergen5' value='dairy'></input>
+                  <label for="allergen5">Dairy</label><br></br>
+                  <input type='checkbox' id='allergen6' value='gluten'></input>
+                  <label for="allergen6">Gluten</label><br></br>
+                </label> */}
 
                 <div>
                   <button className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white' type="submit">

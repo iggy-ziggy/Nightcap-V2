@@ -4,13 +4,17 @@ const typeDefs = `
     username: String
     email: String
     password: String
+    image: String
     thoughts: [Thought]!
   }
 
   type Thought {
     _id: ID
     thoughtText: String
+    thoughtTitle: String
+    thoughtPlace: String
     thoughtAuthor: String
+    thoughtImage: String
     createdAt: String
     comments: [Comment]!
     businessId: ID
@@ -50,10 +54,10 @@ const typeDefs = `
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!, image: String): Auth
     addBusiness(name: String!, email: String, phoneNumber: String, bio: String, image: [String], website: String, location: String): Business
     login(email: String!, password: String!): Auth
-    addThought(thoughtText: String!, thoughtAuthor: String!, businessId: ID ): Thought
+    addThought(thoughtText: String!, thoughtTitle: String!, thoughtPlace: String!, thoughtAuthor: String!, thoughtImage: String, businessId: ID ): Thought
     addComment(
       thoughtId: ID!
       commentText: String!

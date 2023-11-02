@@ -13,8 +13,8 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser($username: String!, $email: String!, $password: String!, $image: String) {
+    addUser(username: $username, email: $email, password: $password, image: $image) {
       token
       user {
         _id
@@ -25,11 +25,14 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!, $thoughtAuthor: String!, $businessId: ID) {
-    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor, businessId: $businessId) {
+  mutation addThought($thoughtText: String!, $thoughtTitle: String!,$thoughtPlace: String!, $thoughtAuthor: String!, $image: String, $businessId: ID) {
+    addThought(thoughtText: $thoughtText, thoughtTitle: $thoughtTitle, thoughtPlace: $thoughtPlace, thoughtAuthor: $thoughtAuthor, image: $image, businessId: $businessId) {
       _id
       thoughtText
+      thoughtTitle
+      thoughtPlace
       thoughtAuthor
+      image
       createdAt
       comments {
         _id
@@ -62,7 +65,6 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
-
 
 export const ADD_BUSINESS = gql`
   mutation AddBusiness($name: String!, $email: String, $phoneNumber: String, $bio: String, $image: [String], $website: String, $location: String) {

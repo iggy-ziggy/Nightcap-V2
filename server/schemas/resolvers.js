@@ -32,7 +32,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password, image }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
@@ -56,12 +56,15 @@ const resolvers = {
       console.log('token')
       return { token, user };
     },
-    addThought: async (parent, { thoughtText, thoughtAuthor, businessId }) => {
+    addThought: async (parent, { thoughtText, thoughtTitle, thoughtPlace, thoughtAuthor, thoughtImage, businessId }) => {
       try {
         // Create the thought
         const thought = await Thought.create({
           thoughtText,
+          thoughtTitle, 
+          thoughtPlace,
           thoughtAuthor,
+          thoughtImage,
           business: businessId, // Associate thought with a business if provided
         });
     

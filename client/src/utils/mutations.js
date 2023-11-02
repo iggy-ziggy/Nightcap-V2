@@ -25,8 +25,13 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_THOUGHT = gql`
+<<<<<<< HEAD
   mutation addThought($thoughtText: String!, $thoughtTitle: String!,$thoughtPlace: String!, $thoughtAuthor: String!) {
     addThought(thoughtText: $thoughtText, thoughtTitle: $thoughtTitle, thoughtPlace: $thoughtPlace, thoughtAuthor: $thoughtAuthor) {
+=======
+  mutation addThought($thoughtText: String!, $thoughtAuthor: String!, $businessId: ID) {
+    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor, businessId: $businessId) {
+>>>>>>> 1ab411e8ebf7ce89c8ff723f6f8b7c18272631c6
       _id
       thoughtText
       thoughtTitle
@@ -61,6 +66,22 @@ export const ADD_COMMENT = gql`
         commentText
         createdAt
       }
+    }
+  }
+`;
+
+
+export const ADD_BUSINESS = gql`
+  mutation AddBusiness($name: String!, $email: String, $phoneNumber: String, $bio: String, $image: [String], $website: String, $location: String) {
+    addBusiness(name: $name, email: $email, phoneNumber: $phoneNumber, bio: $bio, image: $image, website: $website, location: $location) {
+      _id
+      name
+      email
+      phoneNumber
+      bio
+      image
+      website
+      location
     }
   }
 `;

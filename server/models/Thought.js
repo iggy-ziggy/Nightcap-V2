@@ -33,6 +33,10 @@ const thoughtSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
+  business: {
+    type: Schema.Types.ObjectId,
+    ref: 'Business',
+  },
   comments: [
     {
       commentText: {

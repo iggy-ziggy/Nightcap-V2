@@ -32,6 +32,37 @@ function User() {
     const [image, setimage] = useState("");
     const [src, setsrc] = useState(false);
     const [profile, setProfile] = useState([]);
+    // const [userId, setUserId] = useState("");
+    // const [imageUrls, setImageUrls] = useState([]);
+    // const [userData, setUserData] = useState({
+    //     userId:""
+    //     image: "",
+    //   });
+    // const [updateUserMutation] = useMutation(UPDATE_USER);
+
+    // const updateUser = () => {
+    //     const variables = {
+    //     user: userId,
+    //     image: imageUrl,
+    //   };
+    // updateUserMutation({
+    //     variables,
+    //   })
+
+//     .then((res) => {
+//         console.log(res);
+//         setImageUrl('');
+//       }
+//       .catch((err) => {
+//         console.error(err);
+//         setError("An error occurred while adding the business. Please try again.");
+//       });
+//   };
+
+// setImageUrl(imageUrl);
+//     setUserData((prevData) => ({
+//       ...prevData,
+//       image: imageUrl,
 
     const profilePic = profile.map((item) => item.image);
 
@@ -69,6 +100,15 @@ function User() {
             setsrc(storedImageURL);
         }
     }, []);
+
+    // useEffect(() => {
+    //     const profile = AuthService.getProfile();
+    //     if (profile) {
+    //       const userId = profile.data._id;
+    //       console.log(userId);
+    //       setUserData({...UserData, user: userId });
+    //     }
+    //   }, [userId]);
 
     return (
         <section className='relative w-full h-screen mx-auto'>

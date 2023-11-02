@@ -36,7 +36,7 @@
 
 }
 
-input:focus {
+.Input:focus {
     outline: none;
 }
 
@@ -85,19 +85,19 @@ input:focus {
     margin-left: 10px;
 }
 
-a {
+/* a {
     box-shadow: inset 0 0 0 0 white;
     color: grey;
     margin: 0 -.25rem;
     padding: 0 .25rem;
     transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
-  }
+  } */
 
-  a:hover {
+  /* a:hover {
     box-shadow: inset 100px 0 0 0 grey;
     color: white;
-  }
+  } */
 
 #clearBtn {
     cursor: pointer;
-} */
+} 

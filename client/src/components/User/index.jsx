@@ -46,7 +46,7 @@ function User() {
                                         border: '4px solid blue',
                                         transition: 'transform 0.2s ease-in-out',
                                       }}
-                                    src={src || img}
+                                    src={ img}
                                     alt="Profile Picture" 
                                 ></img>
                                 <div>
@@ -71,12 +71,11 @@ function User() {
                                             const file = event.target.files[0];
                                             if(file && file.type.startsWith('image')){
                                                 setimage(file);
-                                                saveImage();
+                                                // saveImage();
                                             } else{
                                                 setimage(img);
                                             }
                                         }} />
-                                    {/* <button onClick={saveImage}>Save</button> */}
                                 </div>
                             </div>
                         </motion.div>

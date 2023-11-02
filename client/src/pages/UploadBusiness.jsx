@@ -7,7 +7,7 @@ import { ADD_BUSINESS } from "../utils/mutations";
 import { motion } from "framer-motion";
 import { slideIn } from "../utils/motion";
 import { styles } from "../styles";
-import { BigBallCanvas, Navbar } from "../components";
+import { BigBallCanvas, Navbar, SideNav } from "../components";
 
 function UploadBusiness() {
   const [userId, setUserId] = useState("");
@@ -94,113 +94,108 @@ function UploadBusiness() {
   };
 
   return (
-    <div className='relative z-0 bg-primary'>
+    <div className='h-full z-0 bg-primary'>
       <Navbar />
-      <div className={`${styles.padding} xl:mt-12 xl:flex-row flex-col flex gap-10 overflow-hidden`}>
-        <div
-          className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
-        >
-          <p className={styles.sectionSubText}>New to us?</p>
-          <h3 className={styles.sectionHeadText}>Start here!</h3>
+      <div className={`${styles.paddingX} h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
+        <SideNav />
+        <div className='w-full gap-10 mx-auto relative'>
+          <div className="flex flex-col gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full">
+            <p className={styles.sectionSubText}>New to us?</p>
+            <h3 className={styles.sectionHeadText}>Start here!</h3>
 
-          <div>
-            <label>Upload Image</label>
-            <UploadImage onImageUploaded={handleImageUploaded} />
-          </div>
-
-          <form
-            onSubmit={addBusiness}
-            className="mt-12 flex flex-col gap-8"
-          >
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Business Name</span>
-              <input
-                placeholder="Business Name"
-                type="text"
-                name="name"
-                value={businessData.name}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Email</span>
-              <input
-                placeholder="youremail@test.com"
-                type="text"
-                name="email"
-                value={businessData.email}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Phone Number</span>
-              <input
-                placeholder="000-000-0000"
-                type="text"
-                name="phoneNumber"
-                value={businessData.phoneNumber}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Description</span>
-              <textarea
-                placeholder="Tell us about your business"
-                rows="4"
-                type="text"
-                name="bio"
-                value={businessData.bio}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Website</span>
-              <input
-                placeholder="Paste your link here"
-                type="text"
-                name="website"
-                value={businessData.website}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-
-            <label className='flex flex-col'>
-              <span className='text-white font-medium mb-4'>Location</span>
-              <input
-                placeholder="Location"
-                type="text"
-                name="location"
-                value={businessData.location}
-                onChange={handleBusinessDataChange}
-                className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
-              />
-            </label>
-            <div className='flex flex-row sm:block justify-center'>
-              {error && <div className="error">{error}</div>}
-              <button
-                type="button"
-                className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'
-                onClick={addBusiness}
-              >
-                Submit
-              </button>
+            <div>
+              <label>Upload Image</label>
+              <UploadImage onImageUploaded={handleImageUploaded} />
             </div>
-          </form>
-        </div>
 
-        <div
-          className='w-full h-screen mx-auto'
-        >
-          <BigBallCanvas />
+            <form
+              onSubmit={addBusiness}
+              className="mt-12 flex flex-col gap-8"
+            >
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Business Name</span>
+                <input
+                  placeholder="Business Name"
+                  type="text"
+                  name="name"
+                  value={businessData.name}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Email</span>
+                <input
+                  placeholder="youremail@test.com"
+                  type="text"
+                  name="email"
+                  value={businessData.email}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Phone Number</span>
+                <input
+                  placeholder="000-000-0000"
+                  type="text"
+                  name="phoneNumber"
+                  value={businessData.phoneNumber}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Description</span>
+                <textarea
+                  placeholder="Tell us about your business"
+                  rows="4"
+                  type="text"
+                  name="bio"
+                  value={businessData.bio}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Website</span>
+                <input
+                  placeholder="Paste your link here"
+                  type="text"
+                  name="website"
+                  value={businessData.website}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Location</span>
+                <input
+                  placeholder="Location"
+                  type="text"
+                  name="location"
+                  value={businessData.location}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+              <div className='flex flex-row sm:block justify-center'>
+                {error && <div className="error">{error}</div>}
+                <button
+                  type="button"
+                  className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'
+                  onClick={addBusiness}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

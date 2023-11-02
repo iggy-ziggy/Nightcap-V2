@@ -1,3 +1,5 @@
+
+// Need to npm install --save styled-components
 import styled from 'styled-components';
  
 export const Container = styled.div`

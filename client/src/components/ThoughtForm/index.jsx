@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { slideIn } from '../../utils/motion';
 import { motion } from 'framer-motion';
 import { Tilt } from 'react-tilt';
+import { FaStar } from "react-icons/fa";
+import { Container, Radio, Rating } from "./RatingStyles";
 
 import { ADD_THOUGHT } from '../../utils/mutations';
 import { QUERY_THOUGHTS, QUERY_BUSINESS } from '../../utils/queries';
@@ -15,6 +17,7 @@ const ThoughtForm = ( businessId ) => {
   const [thoughtPlace, setThoughtPlace] = useState('');
   const [thoughtText, setThoughtText] = useState('');
   const [thoughtImage, setThoughtImage] = useState('');
+  const [rate, setRate] = useState(0);
   const [characterCount, setCharacterCount] = useState(0);
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
     refetchQueries: businessId
@@ -139,16 +142,31 @@ const ThoughtForm = ( businessId ) => {
                   value={thoughtImage}
                   onChange={handleChange}
                 ></input>
-                {/* <label className='flex flex-col'>
-                  <input type='checkbox' id='allergen1' value='nuts'></input>
-                  <label for="allergen1">Nuts</label><br></br>
-                  <input type='checkbox' id='allergen2' value='egg'></input>
-                  <label for="allergen2">Egg</label><br></br>
-                  <input type='checkbox' id='allergen5' value='dairy'></input>
-                  <label for="allergen5">Dairy</label><br></br>
-                  <input type='checkbox' id='allergen6' value='gluten'></input>
-                  <label for="allergen6">Gluten</label><br></br>
-                </label> */}
+                <div>
+                  {[...Array(5)].map((item, index) => {
+                      const givenRating = index + 1;
+                      return (
+                          <label>
+                              <Radio
+                                  type="radio"
+                                  value={givenRating}
+                                  onClick={() => {
+                                      setRate(givenRating);
+                                  }}
+                              />
+                              <Rating>
+                                  <FaStar
+                                      color= {
+                                          givenRating < rate || givenRating === rate
+                                              ? "000"
+                                              : "rgb(192,192,192)"
+                                      }
+                                  />
+                              </Rating>
+                          </label>
+                        );
+                    })}
+                </div>
 
                 <div>
                   <button className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white' type="submit">

@@ -84,7 +84,7 @@ function Search() {
   return (
     <div className='z-0 bg-primary'>
       <Navbar />
-      <div className={`${styles.paddingX} bg-primary h-screen relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
+      <div className={`${styles.paddingX} bg-primary h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
         <SideNav />
         <div className={`${styles.paddingX} max-w-7xl mx-auto z-0`}>
           <SearchBar placeholder="Search for users or businesses..." data={combinedData} />

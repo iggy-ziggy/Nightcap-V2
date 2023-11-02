@@ -23,7 +23,7 @@ const ThoughtList = ({ thoughts }) => {
             <h5 className={styles.heroSubText}>
               {thought.thoughtAuthor} 
               <span className={styles.sectionSubText}>
-                {' ' + 'on' + ' ' + thought.createdAt}
+                {' ' + 'on' + ' ' + thought.createdAt + thought.rate}
               </span>
             </h5>
             <img 

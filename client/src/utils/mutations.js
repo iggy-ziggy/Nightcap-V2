@@ -24,6 +24,19 @@ export const ADD_USER = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation updateUser($username: String!, $image: String) {
+    updateUser(username: $username, image: $image) {
+      token
+      user {
+        _id
+        username
+        image
+      }
+    }
+  }
+`;
+
 export const ADD_THOUGHT = gql`
   mutation addThought($thoughtText: String!, $thoughtTitle: String!,$thoughtPlace: String!, $thoughtAuthor: String!, $image: String, $businessId: ID) {
     addThought(thoughtText: $thoughtText, thoughtTitle: $thoughtTitle, thoughtPlace: $thoughtPlace, thoughtAuthor: $thoughtAuthor, image: $image, businessId: $businessId) {

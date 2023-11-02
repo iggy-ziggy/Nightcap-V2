@@ -56,7 +56,7 @@ const resolvers = {
       console.log('token')
       return { token, user };
     },
-    addThought: async (parent, { thoughtText, thoughtTitle, thoughtPlace, thoughtAuthor, thoughtImage, businessId }) => {
+    addThought: async (parent, { thoughtText, thoughtTitle, thoughtPlace, thoughtAuthor, thoughtImage, rate, businessId }) => {
       try {
         // Create the thought
         const thought = await Thought.create({
@@ -65,6 +65,7 @@ const resolvers = {
           thoughtPlace,
           thoughtAuthor,
           thoughtImage,
+          rate,
           business: businessId, // Associate thought with a business if provided
         });
     

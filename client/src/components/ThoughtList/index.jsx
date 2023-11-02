@@ -11,7 +11,7 @@ const ThoughtList = ({ thoughts, title }) => {
   }
 
   return (
-    <div className={`${styles.padding} max-w-7xl mx-auto relative z-0`}>
+    <div className={`${styles.paddingX} max-w-7xl mx-auto relative z-0`}>
       {thoughts &&
         thoughts.map((thought) => (
           <div key={thought._id} className="mt-12 flex-col flex gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full hover:shadow-card">

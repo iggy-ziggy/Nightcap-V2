@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import  { useNavigate }  from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage";
 import AuthService from "../utils/auth";
 import { ADD_BUSINESS } from "../utils/mutations";
+import { motion } from "framer-motion";
+import { slideIn } from "../utils/motion";
+import { styles } from "../styles";
+import { BigBallCanvas, Navbar, SideNav } from "../components";
 
 function UploadBusiness() {
   const [userId, setUserId] = useState("");
@@ -12,7 +16,7 @@ function UploadBusiness() {
   const [businessData, setBusinessData] = useState({
     user: "",
     name: "",
-    email: "", 
+    email: "",
     image: [],
     phoneNumber: "",
     bio: "",
@@ -27,7 +31,7 @@ function UploadBusiness() {
     if (profile) {
       const userId = profile.data._id;
       console.log(userId);
-      setBusinessData({...businessData, user: userId });
+      setBusinessData({ ...businessData, user: userId });
     }
   }, [userId]);
 
@@ -46,22 +50,22 @@ function UploadBusiness() {
 
   const addBusiness = () => {
     const variables = {
-    user: userId,
-    name: businessData.name,
-    email: businessData.email,
-    image: imageUrls,
-    phoneNumber: businessData.phoneNumber,
-    bio: businessData.bio,
-    website: businessData.website,
-    location: businessData.location,
-  };
+      user: userId,
+      name: businessData.name,
+      email: businessData.email,
+      image: imageUrls,
+      phoneNumber: businessData.phoneNumber,
+      bio: businessData.bio,
+      website: businessData.website,
+      location: businessData.location,
+    };
 
     addBusinessMutation({
       variables,
     })
       .then((res) => {
         console.log(res);
-        navigateTo(`/business/${res.data.addBusiness._id}`); 
+        navigateTo(`/business/${res.data.addBusiness._id}`);
         setBusinessData({
           user: "",
           name: "",
@@ -90,76 +94,110 @@ function UploadBusiness() {
   };
 
   return (
-    <div>
-      <h2>Upload A Business</h2>
-      <div>
-        <label>Upload Image</label>
-        <UploadImage onImageUploaded={handleImageUploaded} />
+    <div className='h-full z-0 bg-primary'>
+      <Navbar />
+      <div className={`${styles.paddingX} pb-8 bg-primary h-full relative inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5`}>
+        <SideNav />
+        <div className='w-full px-8 gap-10 mx-auto relative'>
+          <div className="flex flex-col gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full">
+            <p className={styles.sectionSubText}>New to us?</p>
+            <h3 className={styles.sectionHeadText}>Start here!</h3>
+
+            <div>
+              <label>Upload Image</label>
+              <UploadImage onImageUploaded={handleImageUploaded} />
+            </div>
+
+            <form
+              onSubmit={addBusiness}
+              className="mt-12 flex flex-col gap-8"
+            >
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Business Name</span>
+                <input
+                  placeholder="Business Name"
+                  type="text"
+                  name="name"
+                  value={businessData.name}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Email</span>
+                <input
+                  placeholder="youremail@test.com"
+                  type="text"
+                  name="email"
+                  value={businessData.email}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Phone Number</span>
+                <input
+                  placeholder="000-000-0000"
+                  type="text"
+                  name="phoneNumber"
+                  value={businessData.phoneNumber}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Description</span>
+                <textarea
+                  placeholder="Tell us about your business"
+                  rows="4"
+                  type="text"
+                  name="bio"
+                  value={businessData.bio}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Website</span>
+                <input
+                  placeholder="Paste your link here"
+                  type="text"
+                  name="website"
+                  value={businessData.website}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+
+              <label className='flex flex-col'>
+                <span className='text-white font-medium mb-4'>Location</span>
+                <input
+                  placeholder="Location"
+                  type="text"
+                  name="location"
+                  value={businessData.location}
+                  onChange={handleBusinessDataChange}
+                  className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outlined-none border-none font-medium'
+                />
+              </label>
+              <div className='flex flex-row sm:block justify-center'>
+                {error && <div className="error">{error}</div>}
+                <button
+                  type="button"
+                  className='bg-tertiary py-3 px-8 outline-none w-fit text-white font-bold shadow-md shadow-primary rounded-xl'
+                  onClick={addBusiness}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <form onSubmit={addBusiness}>
-        <div>
-          <label>
-            Name*
-            <input
-              type="text"
-              name="name"
-              value={businessData.name}
-              onChange={handleBusinessDataChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Email
-            <input
-              type="text"
-              name="email"
-              value={businessData.email}
-              onChange={handleBusinessDataChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>Phone Number</label>
-          <input
-            type="text"
-            name="phoneNumber"
-            value={businessData.phoneNumber}
-            onChange={handleBusinessDataChange}
-          />
-        </div>
-        <div>
-          <label>Bio</label>
-          <input
-            type="text"
-            name="bio"
-            value={businessData.bio}
-            onChange={handleBusinessDataChange}
-          />
-        </div>
-        <div>
-          <label>Website</label>
-          <input
-            type="text"
-            name="website"
-            value={businessData.website}
-            onChange={handleBusinessDataChange}
-          />
-        </div>
-        <div>
-          <label>Location</label>
-          <input
-            type="text"
-            name="location"
-            value={businessData.location}
-            onChange={handleBusinessDataChange}
-          />
-        </div>
-        <div>
-          {error && <div className="error">{error}</div>}
-          <button type="button" onClick={addBusiness}>Submit</button>
-        </div>
-      </form>
     </div>
   );
 }

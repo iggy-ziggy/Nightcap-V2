@@ -49,9 +49,27 @@ const Navbar = () => {
             <ul className='list-none hidden sm:flex flex-row gap-10'>
               <li
                 className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
-                <Link to="/profile">
+                <Link to="/profile"
+                  onClick={() => {
+                    setActive("");
+                    // keeps track of where you are on the page
+                    window.scrollTo(0, 0);
+                  }}
+                >
                   Profile
                   {/* <UserProfilePicture user={currentUser} /> */}
+                </Link>
+              </li>
+              <li
+                className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                <Link to="/home"
+                  onClick={() => {
+                    setActive("");
+                    // keeps track of where you are on the page
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  Home
                 </Link>
               </li>
               <li
@@ -69,13 +87,67 @@ const Navbar = () => {
                 <ul className='list-none flex justify-end items-start flex-col gap-4'>
                   <li
                     className='text-secondary hover:text-white text-[16px] font-medium cursor-pointer'>
-                    <Link to="/profile">
+                    <Link to="/profile"
+                      onClick={() => {
+                        setActive("");
+                        // keeps track of where you are on the page
+                        window.scrollTo(0, 0);
+                      }}
+                    >
                       Profile
                     </Link>
                   </li>
                   <li
+                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                    <Link to="/home"
+                      onClick={() => {
+                        setActive("");
+                        // keeps track of where you are on the page
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li
+                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                    <Link to="/search"
+                      onClick={() => {
+                        setActive("");
+                        // keeps track of where you are on the page
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Search
+                    </Link>
+                  </li>
+                  <li
+                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                    <Link to="/badges"
+                      onClick={() => {
+                        setActive("");
+                        // keeps track of where you are on the page
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Badges
+                    </Link>
+                  </li>
+                  <li
+                    className='text-secondary hover:text-white text-[18px] font-medium cursor-pointer'>
+                    <Link to="/business/upload"
+                      onClick={() => {
+                        setActive("");
+                        // keeps track of where you are on the page
+                        window.scrollTo(0, 0);
+                      }}
+                    >
+                      Upload Business
+                    </Link>
+                  </li>
+                  <li
                     className='text-secondary hover:text-white text-[16px] font-medium cursor-pointer'>
-                    <Link to="/">
+                    <Link to="/" onClick={() => Auth.logout()}>
                       Logout
                     </Link>
                   </li>

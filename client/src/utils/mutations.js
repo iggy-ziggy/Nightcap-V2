@@ -77,3 +77,16 @@ export const ADD_BUSINESS = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser($username: String!, $image: String) {
+    updateUser(username: $username, image: $image) {
+      token
+      user {
+        _id
+        username
+        image
+      }
+    }
+  }
+`;

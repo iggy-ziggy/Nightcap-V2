@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import React, {useState, useRef, useEffect} from 'react';
+import { useMutation } from "@apollo/client";
 import { styles } from '../../styles';
 import { slideIn } from '../../utils/motion';
 import ThoughtForm from '../ThoughtForm';
@@ -6,8 +8,65 @@ import { SectionWrapper } from '../../hoc';
 import Badges from '../Badges';
 import { Tilt } from 'react-tilt';
 import Auth from '../../utils/auth';
+import UploadImage from "../../components/UploadImage";
+import CameraIcon from '/camera-icon.svg';
+import { UPDATE_USER } from "../../utils/mutations";
 
 function User() {
+    const [userId, setUserId] = useState("");
+    const [imageUrl, setImageUrl] = useState([]);
+    const [userData, setUserData] = useState({
+        userId: "",
+        image: "",
+    });
+
+
+    useEffect(() => {
+        const profile = Auth.getProfile();
+        if (profile) {
+            const userId = profile.data._id;
+            console.log(userId);
+            setUserData({ ...userData, user: userId });
+        }
+    }, [userId]);
+
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+
+
+    const [updateUserMutation] = useMutation(UPDATE_USER);
+    const updateUser = () => {
+        const variables = {
+            user: userId,
+            image: imageUrl,
+        };
+
+        updateUserMutation({
+            variables,
+        })
+            .then((res) => {
+                console.log(res);
+                setImageUrl('');
+            })
+            .catch((err) => {
+                console.error(err);
+                setError("An error occurred while adding the business. Please try again.");
+            });
+    };
+
+
+    const handleImageUploaded = (imageUrl) => {
+        console.log('Image URLs:', imageUrl);
+        setImageUrl(imageUrl);
+        setUserData((prevData) => ({
+            ...prevData,
+            image: imageUrl,
+        }));
+    };
+
+
+
     return (
         <section className='relative w-full h-screen mx-auto'>
             <div className='absolute inset-0 top-[120px] max-w-7x1 mx-auto flex flex-row items-start gap-5 sm:flex flex-wrap'>
@@ -18,11 +77,35 @@ function User() {
                             variants={slideIn('left', "tween", 0.2, 1)}
                             className='w-full green-pink-gradient p-[1px] rounded-[180px] shadow-card'
                         >
-                            <div className='bg-tertiary rounded-[180px] py-5 px-5 flex justify-evenly items-center flex-col'>
-                                <img
+                            <div className='bg-tertiary rounded-[180px] py-5 px-5 flex justify-evenly items-center flex-col'
+                                onMouseEnter={() => {
+                                    // On hover, make the camera icon visible
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'block';
+                                }}
+                                onMouseLeave={() => {
+                                    // On hover exit, hide the camera icon
+                                    const cameraIcon = document.querySelector('.camera-icon');
+                                    cameraIcon.style.display = 'none';
+                                }}>
+
+                                <label>Upload Image</label>
+                                <UploadImage
+                                    onImageUploaded={handleImageUploaded}
+                                    id="img-profile"
+                                    style={{
+                                        width: '200px',
+                                        height: '200px',
+                                        borderRadius: '50%',
+                                        objectFit: 'cover',
+                                        border: '4px solid blue',
+                                        transition: 'transform 0.2s ease-in-out',
+                                    }}
+                                />
+                                {/* <img
                                     className="w-30 h-30 object-contain rounded-[180px]"
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwnwAwRQEwRvQYCfXAgvnKUKjQ1KJKlNY2Yw&usqp=CAU"
-                                ></img>
+                                ></img> */}
                             </div>
                         </motion.div>
                     </Tilt>
@@ -43,7 +126,7 @@ function User() {
                     <div className='absolute bottom-20 wfull flex justify-center items-center sm:block hidden'>
                         <a href="#thought-list">
                             <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
-                                <motion.div 
+                                <motion.div
                                     animate={{
                                         y: [0, 24, 0]
                                     }}

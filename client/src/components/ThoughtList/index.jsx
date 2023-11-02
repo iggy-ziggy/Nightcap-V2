@@ -1,9 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useAnimate, stagger, motion } from 'framer-motion';
-
-import { styles } from '../../styles';
-import { SectionWrapper } from '../../hoc';
-import { textVariant, fadeIn } from '../../utils/motion';
 
 const ThoughtList = ({ thoughts, title }) => {
   if (!thoughts.length) {
@@ -11,21 +6,22 @@ const ThoughtList = ({ thoughts, title }) => {
   }
 
   return (
-    <div className={`${styles.paddingX} max-w-7xl mx-auto relative z-0`}>
+    <div>
+      <h3>{title}</h3>
       {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="mt-12 flex-col flex gap-10 flex-[0.75] bg-black-100 p-8 rounded-2xl w-full hover:shadow-card">
-            <h4 className={styles.heroSubText}>
+          <div key={thought._id} className="card mb-3">
+            <h4 className="card-header bg-primary text-light p-2 m-0">
               {thought.thoughtAuthor} <br />
-              <span className={styles.sectionSubText}>
+              <span style={{ fontSize: '1rem' }}>
                 {thought.createdAt}
               </span>
             </h4>
-            <div className="text-white font-medium mb-4">
+            <div className="card-body bg-light p-2">
               <p>{thought.thoughtText}</p>
             </div>
             <Link
-              className='bg-tertiary py-3 px-8 outline-none w-fit text-secondary font-bold shadow-md shadow-primary rounded-xl hover:text-white'
+              className="btn btn-primary btn-block btn-squared"
               to={`/thoughts/${thought._id}`}
             >
               Comment
@@ -34,7 +30,6 @@ const ThoughtList = ({ thoughts, title }) => {
         ))}
     </div>
   );
-}
-
+};
 
 export default ThoughtList;

@@ -38,8 +38,6 @@ function UploadImage({ onImageUploaded }) {
           console.log(urls);
           setSelectedImages([]);
           setUploadMessage("Images were successfully uploaded.");
-          setImagePreviews(urls);
-
         }
       })
       .catch((error) => {
@@ -69,7 +67,7 @@ function UploadImage({ onImageUploaded }) {
           setSelectedImages(Array.from(event.target.files));
           setError(null);
         }}
-        multiple
+        // multiple
       />
       <button onClick={uploadFile}>Upload Images</button>
       <div className = "imgs">

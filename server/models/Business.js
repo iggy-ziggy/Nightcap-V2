@@ -6,6 +6,7 @@ const businessSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -13,6 +14,7 @@ const businessSchema = new Schema({
   },
   phoneNumber: {
     type: String,
+    unique: true,
   },
   bio: {
     type: String,
@@ -26,8 +28,6 @@ const businessSchema = new Schema({
 //   cocktails: [{ type: Schema.Types.ObjectId, ref: "Cocktail" }],
 });
 
-
-const Business = model("Business", businessSchema);
-
+const Business = model("BusinessProfile", businessSchema);
 
 module.exports = Business;

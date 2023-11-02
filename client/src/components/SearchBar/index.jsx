@@ -2,46 +2,60 @@ import React, { useState } from "react";
 import "./searchBar.css";
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
-import { BiSearchAlt } from 'react-icons/bi';
+import { BiSearchAlt, BiZoomIn } from 'react-icons/bi';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 
+function SearchBar({ placeholder, data, onFilter, onSearch }) {
+    const [filteredData, setFilteredData] = useState([]);
+    const [wordEntered, setWordEntered] = useState("");
+    const NavigateTo = useNavigate();
 
-function SearchBar({ placeholder, data, handleFilteredData }) {
-  const [filteredData, setFilteredData] = useState([]);
-  const [wordEntered, setWordEntered] = useState("");
-  const NavigateTo = useNavigate();
-
-
-  const handleFilter = (event) => {
-
-    const searchWord = event.target.value;
-    setWordEntered(searchWord);
-    console.log(searchWord);
-    const newFilter = data.filter((item) => {
-      return item.name && item.name.toString().toLowerCase().includes(searchWord.toString().toLowerCase());
-    });
-    if (searchWord === "") {
-      setFilteredData([]);
-    } else {
-      setFilteredData(newFilter);
-      console.log(filteredData);
-      onFilter(newFilter);
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            clearInput();
+            handleSearch();
+        }
     }
-  };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  }
-  const handleSearch = () => {
-    NavigateTo(`/search?q=${wordEntered}`);
-  };
-  const clearInput = () => {
-    setFilteredData([]);
-    setWordEntered("");
-  };
+    const handleSearch = () => {
+      clearInput();
+      if (onSearch) {
+        onSearch(wordEntered);
+        NavigateTo(`/search?q=${wordEntered}`);
+      } else if (users) {
+        NavigateTo(`/search?q=${wordEntered}&type=users`);
+      } else {
+        NavigateTo(`/search?q=${wordEntered}&type=business`);
+      }
+    };
+
+
+    const clearInput = () => {
+        setFilteredData([]);
+        setWordEntered("");
+    };
+
+    const filterData = (event) => {
+      const searchWord = event.target.value;
+      const sanitizedSearchWord = searchWord.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    
+      setWordEntered(searchWord);
+      console.log(sanitizedSearchWord);
+    
+      const newFilter = data.filter((item) => {
+        const sanitizedItemName = item.name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+        return sanitizedItemName.includes(sanitizedSearchWord);
+      });
+    
+      if (searchWord === "") {
+        setFilteredData([]);
+      } else {
+        setFilteredData(newFilter);
+        onFilter(newFilter);
+      }
+    };
+
 
   return (
     <div className="search justify-center items-center">

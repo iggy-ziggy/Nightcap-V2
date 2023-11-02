@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-
+import AuthService from "../utils/auth";
 import ThoughtList from "../components/ThoughtList";
 import ThoughtForm from "../components/ThoughtForm";
 import { Navbar } from "../components";

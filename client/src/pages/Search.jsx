@@ -13,7 +13,7 @@ function Search() {
   const [loadMoreCount, setLoadMoreCount] = useState(20);
   const { loading: usersLoading, error: usersError, data: userData } = useQuery(QUERY_USERS);
   const { loading: businessesLoading, error: businessesError, data: businessData } = useQuery(QUERY_BUSINESSES);
-  const { searchType } = useParams();
+  const { searchWord, searchType} = useParams();
 
   useEffect(() => {
     if (!usersLoading && !businessesLoading && userData && businessData) {
@@ -25,7 +25,7 @@ function Search() {
           image: user.image?.[0] || '',
         })),
         ...businessData.businesses.map((business) => ({
-          id: business.__id,
+          id: business._id,
           type: 'business',
           name: business.name,
           image: business.image?.[0] || '',
@@ -34,15 +34,27 @@ function Search() {
       setCombinedData(combinedData);
       console.log(combinedData);
     }
-  }, [usersLoading, businessesLoading, userData, businessData]);
+  }, [usersLoading, businessesLoading, userData, businessData, usersError, businessesError]);
 
-  useEffect(() => {
+  const handleFilter = (filteredData) => {
+    setFilteredData(filteredData);
+    console.log(filteredData);
+  }
+
+
+  const handleSearch = (searchWord, searchType) => {
+    setFilteredData([]);
     let filteredItems = combinedData;
+    if (searchWord) {
+      filteredItems = filteredItems.filter((item) => {
+        return item.name.toLowerCase().includes(searchWord.toLowerCase());
+      });
+    }
     if (searchType) {
-      filteredItems = combinedData.filter((item) => item.type === searchType);
+      filteredItems = filteredItems.filter((item) => item.type === searchType);
     }
     setFilteredData(filteredItems.slice(0, loadMoreCount));
-  }, [combinedData, searchType, loadMoreCount]);
+  };
 
   const loadMore = () => {
     setLoadMoreCount(loadMoreCount + 20);
@@ -50,7 +62,7 @@ function Search() {
 
   const renderContent = () => {
     if (filteredData.length === 0) {
-      return <div>No Results Found</div>;
+      return null;
     }
 
     return (
@@ -63,7 +75,7 @@ function Search() {
               ) : (
                 <img
                   className="resultImg"
-                  src="placeholder-image-url" // Replace with your placeholder image URL
+                  src="placeholder-image-url"
                   alt={item.name}
                 />
               )}
@@ -79,7 +91,7 @@ function Search() {
         )}
       </div>
     );
-  };
+  }
 
   return (
     <div className='z-0 bg-primary'>
@@ -92,7 +104,7 @@ function Search() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default Search;

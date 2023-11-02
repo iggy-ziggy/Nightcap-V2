@@ -37,6 +37,10 @@ const ThoughtForm = ( businessId ) => {
       const input = {
         thoughtText,
         thoughtAuthor,
+        thoughtTitle,
+        thoughtPlace,
+        thoughtImage,
+        rate,
         businessId: businessId ? businessId.businessId : null,
       };
 
@@ -48,6 +52,7 @@ const ThoughtForm = ( businessId ) => {
           thoughtPlace,
           thoughtText,
           thoughtImage,
+          rate,
           thoughtAuthor: Auth.getProfile().data.username,
           input
         },
@@ -56,6 +61,7 @@ const ThoughtForm = ( businessId ) => {
       setThoughtPlace('');
       setThoughtText('');
       setThoughtImage('');
+      setRate(0);
     } catch (err) {
       console.error(err);
     }

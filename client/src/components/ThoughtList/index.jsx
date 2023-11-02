@@ -29,7 +29,7 @@ const ThoughtList = ({ thoughts }) => {
             <img 
               className="drink-image" 
               src={thought.thoughtImage} 
-              style= {{width:'50%', height:'auto'}}
+              style= {{width:'50%', height:'auto', margin: '0 auto'}}
               alt="Drink Photo"
             />
             <div className="text-white font-medium mb-4">

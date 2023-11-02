@@ -13,6 +13,7 @@ const UserProvider = ({ value = [], ...props }) => {
     comments: [],
     follower: [],
     image: [],
+    rate: [],
     profile: [],
     reaction: [],
     reviews: [],
